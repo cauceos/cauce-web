@@ -5,9 +5,12 @@ import PulseDot from './PulseDot.astro';
 interface Props {
   withDot?: boolean;
   color?: 'teal' | 'moss';
+  /** Optional accent override (e.g. text-teal-600 inside light sections).
+   * When set, it replaces the default color class so there's no conflict. */
+  class?: string;
 }
 
-const { withDot = false, color = 'teal' } = Astro.props;
+const { withDot = false, color = 'teal', class: className } = Astro.props;
 
 const colorClass = color === 'moss' ? 'text-moss-400' : 'text-teal-500';
 ---
@@ -15,7 +18,7 @@ const colorClass = color === 'moss' ? 'text-moss-400' : 'text-teal-500';
 <span
   class:list={[
     'inline-flex items-center gap-2.5 font-mono text-[10px] tracking-eyebrow uppercase',
-    colorClass,
+    className ?? colorClass,
   ]}
 >
   {withDot && <PulseDot color={color} />}
