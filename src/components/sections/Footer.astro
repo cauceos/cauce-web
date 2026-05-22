@@ -1,0 +1,48 @@
+---
+import Logo from '../Logo.astro';
+---
+
+<footer class="border-t border-[var(--border)] py-12 mt-12">
+  <div class="container-page">
+    <div class="flex items-center justify-between flex-wrap gap-5">
+      <!-- Marca -->
+      <div class="flex items-center gap-4">
+        <a href="#inicio" class="flex items-center gap-2.5">
+          <Logo size={22} />
+          <span class="font-display text-base text-stone-400 tracking-tight">
+            Cau<em class="italic text-teal-500">ce</em>
+          </span>
+        </a>
+        <span class="w-px h-4 bg-[var(--border)]"></span>
+        <span class="font-mono text-[10px] text-stone-600 tracking-wider">by Payoyo Dev</span>
+      </div>
+
+      <!-- Links + crédito -->
+      <div class="flex items-center gap-6 flex-wrap">
+        <a
+          href="mailto:hola@cauce.dev"
+          class="font-body text-xs text-stone-600 hover:text-stone-400 transition-colors duration-200"
+        >
+          hola@cauce.dev
+        </a>
+        <a
+          href="https://github.com/cauceos"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-body text-xs text-stone-600 hover:text-stone-400 transition-colors duration-200"
+        >
+          GitHub
+        </a>
+        <a
+          href="https://x.com/cauce_ai"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-body text-xs text-stone-600 hover:text-stone-400 transition-colors duration-200"
+        >
+          X
+        </a>
+        <span class="font-mono text-[10px] text-stone-700 tracking-wider">cauce.dev · 2025</span>
+      </div>
+    </div>
+  </div>
+</footer>
