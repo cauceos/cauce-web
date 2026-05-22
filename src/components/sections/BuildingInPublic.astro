@@ -4,34 +4,21 @@ import Section from '../ui/Section.astro';
 import Eyebrow from '../ui/Eyebrow.astro';
 import Button from '../ui/Button.astro';
 import Logo from '../Logo.astro';
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
 
-interface ManifestoItem {
-  num: string;
-  text: string;
-  bold: string;
+interface Props {
+  lang: Lang;
 }
 
-const manifesto: ManifestoItem[] = [
-  {
-    num: '01',
-    text: 'Un solo developer, desde España. Sin rondas de financiación, sin equipo de 20 personas, sin oficina en Madrid. Solo código consistente y trabajo honesto.',
-    bold: 'Un solo developer, desde España.',
-  },
-  {
-    num: '02',
-    text: 'Todo el proceso, en público. Cada decisión técnica, cada error, cada refactorización. Si algo no funciona, lo digo. Si algo funciona bien, también.',
-    bold: 'Todo el proceso, en público.',
-  },
-  {
-    num: '03',
-    text: 'El código es la documentación. Sin marketing vacío. Si quieres saber si Cauce es serio, abre el repo, lee el código, y saca tus propias conclusiones.',
-    bold: 'El código es la documentación.',
-  },
-  {
-    num: '04',
-    text: 'Europa necesita su infraestructura. GDPR, servidores en la UE, idioma español de primera clase. No somos un fork americano con bandera española.',
-    bold: 'Europa necesita su infraestructura.',
-  },
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const manifesto = [
+  { num: '01', bold: t('bip.manifesto1.bold'), rest: t('bip.manifesto1.rest') },
+  { num: '02', bold: t('bip.manifesto2.bold'), rest: t('bip.manifesto2.rest') },
+  { num: '03', bold: t('bip.manifesto3.bold'), rest: t('bip.manifesto3.rest') },
+  { num: '04', bold: t('bip.manifesto4.bold'), rest: t('bip.manifesto4.rest') },
 ];
 
 interface Devlog {
@@ -44,22 +31,22 @@ interface Devlog {
 
 const devlogs: Devlog[] = [
   {
-    meta: 'HACE 2 DÍAS · DEVLOG #4',
-    text: 'Primer canal funcionando en local.',
-    highlight: 'WhatsApp → cauce-core → respuesta en 340ms.',
+    meta: t('bip.devlog4.meta'),
+    text: t('bip.devlog4.text'),
+    highlight: t('bip.devlog4.highlight'),
     highlightColor: 'teal',
-    after: 'Mañana, memoria por usuario.',
+    after: t('bip.devlog4.after'),
   },
   {
-    meta: 'HACE 1 SEMANA · DEVLOG #3',
-    text: 'Decisión:',
-    highlight: '4 módulos en lugar de 10.',
+    meta: t('bip.devlog3.meta'),
+    text: t('bip.devlog3.text'),
+    highlight: t('bip.devlog3.highlight'),
     highlightColor: 'moss',
-    after: 'Es más fácil dividir cuando duele que unificar cuando ya está separado.',
+    after: t('bip.devlog3.after'),
   },
   {
-    meta: 'HACE 2 SEMANAS · DEVLOG #1',
-    text: 'Esto empieza. He visto demasiados proyectos de IA que no llegan a producción. Cauce va a ser diferente.',
+    meta: t('bip.devlog1.meta'),
+    text: t('bip.devlog1.text'),
     highlight: null,
     highlightColor: null,
     after: null,
@@ -70,13 +57,13 @@ const devlogs: Devlog[] = [
 <Section id="bip">
   <!-- Eyebrow -->
   <div class="mb-5 reveal">
-    <Eyebrow color="teal">BUILDING IN PUBLIC</Eyebrow>
+    <Eyebrow color="teal">{t('bip.eyebrow')}</Eyebrow>
   </div>
 
   <!-- H2 -->
   <h2 class="font-display text-[clamp(36px,4.5vw,60px)] tracking-[-2px] leading-none mb-16 reveal">
-    Construido<br />
-    <em class="italic text-teal-500">en abierto.</em>
+    {t('bip.title.line1')}<br />
+    <em class="italic text-teal-500">{t('bip.title.emphasis')}</em>
   </h2>
 
   <!-- Grid: manifesto + feed -->
@@ -93,7 +80,7 @@ const devlogs: Devlog[] = [
               <p class="text-[15px] text-[#C8CAC2] leading-relaxed font-light">
                 <strong class="text-stone-100 font-medium">{item.bold}</strong>
                 {' '}
-                {item.text.replace(item.bold + ' ', '')}
+                {item.rest}
               </p>
             </div>
           ))
@@ -102,7 +89,7 @@ const devlogs: Devlog[] = [
 
       <div class="mt-10">
         <Button variant="ghost" size="md" href="https://github.com/cauceos">
-          Seguir el progreso →
+          {t('bip.cta')}
         </Button>
       </div>
     </div>

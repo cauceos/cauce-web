@@ -3,6 +3,15 @@
 // only; a custom backend (Supabase/Turso) is pending — emails aren't persisted.
 import Section from '../ui/Section.astro';
 import Logo from '../Logo.astro';
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <Section id="waitlist">
@@ -25,16 +34,15 @@ import Logo from '../Logo.astro';
 
       <!-- H2 -->
       <h2 class="font-display text-[clamp(36px,4vw,56px)] tracking-[-2px] leading-[1.05] mb-4">
-        Sé el primero en<br />
-        probar <em class="italic text-teal-500">Cauce.</em>
+        {t('waitlist.title.line1')}<br />
+        {t('waitlist.title.line2.pre')} <em class="italic text-teal-500">{t('waitlist.title.emphasis')}</em>
       </h2>
 
       <!-- Subtitle -->
       <p
         class="font-body text-base text-[#C8CAC2] leading-relaxed font-light max-w-[480px] mx-auto mb-11"
       >
-        Estamos construyendo en abierto. Cuando lancemos la primera versión
-        pública, los de la lista serán los primeros en acceder.
+        {t('waitlist.subtitle')}
       </p>
 
       <!-- Form -->
@@ -46,14 +54,14 @@ import Logo from '../Logo.astro';
           type="email"
           name="email"
           required
-          placeholder="tu@email.com"
+          placeholder={t('waitlist.email.placeholder')}
           class="flex-1 bg-[var(--color-stone-900)] border border-[var(--border)] rounded-lg px-5 py-3.5 font-body text-sm text-stone-100 placeholder:text-stone-600 outline-none transition-colors duration-200 focus:border-teal-500/40"
         />
         <button
           type="submit"
           class="bg-teal-500 text-stone-950 px-6 py-3.5 rounded-lg font-body text-sm font-semibold transition-all duration-200 hover:bg-teal-400 hover:-translate-y-px whitespace-nowrap cursor-pointer"
         >
-          Apúntame →
+          {t('waitlist.submit')}
         </button>
       </form>
 
@@ -62,12 +70,12 @@ import Logo from '../Logo.astro';
         id="waitlist-success"
         class="hidden items-center justify-center gap-2.5 font-mono text-[13px] text-moss-400 mb-4"
       >
-        <span>✓</span> Apuntado. Te avisamos cuando abramos.
+        <span>✓</span> {t('waitlist.success')}
       </div>
 
       <!-- Note -->
       <p class="font-mono text-[10px] text-stone-600 tracking-wide">
-        Sin spam. Solo cuando haya algo que merezca la pena.
+        {t('waitlist.note')}
       </p>
     </div>
   </div>

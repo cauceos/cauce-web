@@ -1,22 +1,8 @@
 ---
-import Base from '../layouts/Base.astro';
-import Nav from '../components/Nav.astro';
-import Hero from '../components/sections/Hero.astro';
-import Problema from '../components/sections/Problema.astro';
-import QueEsCauce from '../components/sections/QueEsCauce.astro';
-import Arquitectura from '../components/sections/Arquitectura.astro';
-import BuildingInPublic from '../components/sections/BuildingInPublic.astro';
-import Waitlist from '../components/sections/Waitlist.astro';
-import Footer from '../components/sections/Footer.astro';
+import Landing from '../components/Landing.astro';
+import { getLangFromUrl } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
 ---
 
-<Base>
-  <Nav />
-  <Hero />
-  <Problema />
-  <QueEsCauce />
-  <Arquitectura />
-  <BuildingInPublic />
-  <Waitlist />
-  <Footer />
-</Base>
+<Landing lang={lang} />

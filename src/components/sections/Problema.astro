@@ -3,28 +3,21 @@
 // Uses the shared Section wrapper so it inherits the unified 1320px grid.
 import Section from '../ui/Section.astro';
 import Eyebrow from '../ui/Eyebrow.astro';
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 
 const painPoints = [
-  {
-    icon: '💸',
-    title: 'Demos que no llegan a producción',
-    body: 'El 80% de los proyectos de agentes de IA que ves en LinkedIn son prototipos que nadie usa en producción. Código sin tests, sin multi-tenant, sin observabilidad.',
-  },
-  {
-    icon: '🔒',
-    title: 'Vendor lock-in disfrazado de facilidad',
-    body: 'Las plataformas SaaS de agentes te cobran por mensaje, te atan a su LLM y desaparecen cuando pivotan. Tu negocio no puede depender de eso.',
-  },
-  {
-    icon: '🧩',
-    title: 'Integraciones que no escalan',
-    body: 'WhatsApp por un lado, Telegram por otro, la API propia en un tercer repo. Cada canal con su lógica de negocio duplicada. Un infierno de mantenimiento.',
-  },
-  {
-    icon: '🕳️',
-    title: 'Sin infraestructura europea de referencia',
-    body: 'Todo lo serio viene de EEUU, con precios en dólares, servidores en us-east-1 y sin pensar en GDPR. Europa necesita su propia infraestructura.',
-  },
+  { icon: '💸', title: t('problem.pain1.title'), body: t('problem.pain1.body') },
+  { icon: '🔒', title: t('problem.pain2.title'), body: t('problem.pain2.body') },
+  { icon: '🧩', title: t('problem.pain3.title'), body: t('problem.pain3.body') },
+  { icon: '🕳️', title: t('problem.pain4.title'), body: t('problem.pain4.body') },
 ];
 
 const cardBase =
@@ -34,14 +27,14 @@ const cardBase =
 <Section id="problema">
   <!-- Eyebrow -->
   <div class="mb-5 reveal">
-    <Eyebrow color="teal">POR QUÉ EXISTE CAUCE</Eyebrow>
+    <Eyebrow color="teal">{t('problem.eyebrow')}</Eyebrow>
   </div>
 
   <!-- H2 -->
   <h2 class="font-display text-[clamp(36px,4.5vw,60px)] tracking-[-2px] leading-none mb-16 reveal">
-    Hay demasiado<br />
-    <em class="italic text-teal-500">vende-humos</em><br />
-    <span class="text-stone-600">en IA.</span>
+    {t('problem.title.line1')}<br />
+    <em class="italic text-teal-500">{t('problem.title.emphasis')}</em><br />
+    <span class="text-stone-600">{t('problem.title.line3')}</span>
   </h2>
 
   <!-- Grid: pain points + sticky quote -->
@@ -77,17 +70,12 @@ const cardBase =
       <p
         class="font-display text-[22px] tracking-[-0.5px] leading-snug font-light text-stone-100"
       >
-        Cauce existe porque el sector lleva demasiado tiempo optimizando para la
-        demo y no para la producción.
-        <br /><br />
-        Es hora de construir algo que <em class="italic text-teal-500"
-          >aguante de verdad.</em
-        >
+        {t('problem.quote.text')} <em class="italic text-teal-500">{t('problem.quote.emphasis')}</em>
       </p>
       <div
         class="font-mono text-[10px] tracking-[2px] uppercase text-stone-400 pt-5 border-t border-[var(--border)]"
       >
-        — CAUCE OS · CAUCE.DEV
+        {t('problem.quote.author')}
       </div>
     </div>
   </div>

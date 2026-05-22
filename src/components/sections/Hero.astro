@@ -4,12 +4,24 @@
 import Logo from '../Logo.astro';
 import Button from '../ui/Button.astro';
 import Eyebrow from '../ui/Eyebrow.astro';
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 
 const stats = [
-  { value: 'Spring Boot', label: 'Backend sólido' },
-  { value: 'Multi-tenant', label: 'Desde el primer commit' },
-  { value: 'Open source', label: 'Sin lock-in' },
+  { value: t('hero.stat1.value'), label: t('hero.stat1.label') },
+  { value: t('hero.stat2.value'), label: t('hero.stat2.label') },
+  { value: t('hero.stat3.value'), label: t('hero.stat3.label') },
 ];
+
+// Split the subtitle around the bold phrase so it can be emphasised inline.
+const [subtitleBefore, subtitleAfter] = t('hero.subtitle').split(t('hero.subtitle.bold'));
 ---
 
 <section id="inicio" class="relative overflow-hidden min-h-screen pt-32 pb-20">
@@ -29,7 +41,7 @@ const stats = [
   <div class="relative z-10 container-page">
     <!-- Eyebrow sits above the grid so the H1 and the symbol share the same top line -->
     <div class="mb-9">
-      <Eyebrow withDot color="teal">OPEN SOURCE · BUILDING IN PUBLIC</Eyebrow>
+      <Eyebrow withDot color="teal">{t('hero.eyebrow')}</Eyebrow>
     </div>
 
     <div class="grid grid-cols-1 min-[960px]:grid-cols-[1fr_380px] gap-20 items-start">
@@ -38,23 +50,20 @@ const stats = [
         <h1
           class="font-display text-[clamp(52px,6.5vw,92px)] tracking-[-3px] leading-[0.98] mb-7"
         >
-          La infraestructura<br />
-          por donde <em class="italic text-teal-500">fluye</em><br />
-          <span class="text-stone-600">tu IA.</span>
+          {t('hero.title.line1')}<br />
+          {t('hero.title.line2.pre')} <em class="italic text-teal-500">{t('hero.title.line2.emphasis')}</em><br />
+          <span class="text-stone-600">{t('hero.title.line3')}</span>
         </h1>
 
         <p
           class="font-body text-lg text-[#C8CAC2] leading-relaxed font-light max-w-[520px] mb-11"
         >
-          Cauce es la plataforma <strong class="text-stone-100 font-medium"
-            >open source europea</strong
-          > para construir, desplegar y escalar agentes de IA robustos. Sin vendor
-          lock-in. Sin vende-humos. Hecho para durar.
+          {subtitleBefore}<strong class="text-stone-100 font-medium">{t('hero.subtitle.bold')}</strong>{subtitleAfter}
         </p>
 
         <div class="flex flex-wrap items-center gap-3.5">
-          <Button variant="primary" size="md" href="#waitlist">Únete a la waitlist →</Button>
-          <Button variant="ghost" size="md" href="#que-es">Ver el proyecto</Button>
+          <Button variant="primary" size="md" href="#waitlist">{t('hero.cta.primary')}</Button>
+          <Button variant="ghost" size="md" href="#que-es">{t('hero.cta.secondary')}</Button>
         </div>
 
         <div class="mt-14 pt-10 border-t border-[var(--border)] flex flex-wrap gap-8">

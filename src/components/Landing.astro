@@ -1,0 +1,32 @@
+---
+// Landing.astro — the full landing for a given locale. Each /pages entry is a
+// thin wrapper that renders this with its lang, so adding a language is just a
+// new page + dictionary entries (no section refactor needed).
+import Base from '../layouts/Base.astro';
+import Nav from './Nav.astro';
+import Hero from './sections/Hero.astro';
+import Problema from './sections/Problema.astro';
+import QueEsCauce from './sections/QueEsCauce.astro';
+import Arquitectura from './sections/Arquitectura.astro';
+import BuildingInPublic from './sections/BuildingInPublic.astro';
+import Waitlist from './sections/Waitlist.astro';
+import Footer from './sections/Footer.astro';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<Base lang={lang}>
+  <Nav lang={lang} />
+  <Hero lang={lang} />
+  <Problema lang={lang} />
+  <QueEsCauce lang={lang} />
+  <Arquitectura lang={lang} />
+  <BuildingInPublic lang={lang} />
+  <Waitlist lang={lang} />
+  <Footer lang={lang} />
+</Base>

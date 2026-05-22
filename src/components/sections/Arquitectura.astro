@@ -3,6 +3,15 @@
 // stack as colour-coded layers, with a stack-chips footer.
 import Section from '../ui/Section.astro';
 import Eyebrow from '../ui/Eyebrow.astro';
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 
 type LayerColor = 'teal' | 'moss' | 'slate' | 'stone';
 
@@ -16,33 +25,38 @@ interface Layer {
 
 const layers: Layer[] = [
   {
-    label: 'CANALES',
-    items: ['WhatsApp', 'Telegram', 'Voz', 'Web / API'],
+    label: t('arch.layer.channels'),
+    items: ['WhatsApp', 'Telegram', t('arch.channels.voice'), 'Web / API'],
     color: 'teal',
     fullWidth: false,
   },
   {
-    label: 'RUNTIME',
-    items: ['cauce-core · motor de agentes + orquestación'],
+    label: t('arch.layer.runtime'),
+    items: [t('arch.runtime.label')],
     color: 'teal',
     fullWidth: true,
   },
   {
-    label: 'PLATAFORMA',
-    items: ['Memoria', 'Evals', 'Observabilidad', 'Multi-tenant'],
+    label: t('arch.layer.platform'),
+    items: [
+      t('arch.platform.memory'),
+      t('arch.platform.evals'),
+      t('arch.platform.observability'),
+      t('arch.platform.multitenant'),
+    ],
     color: 'moss',
     fullWidth: false,
   },
   {
-    label: 'LLM',
-    items: ['Claude', 'OpenAI', 'Gemini', '+ más'],
+    label: t('arch.layer.llm'),
+    items: ['Claude', 'OpenAI', 'Gemini', t('arch.llm.more')],
     color: 'slate',
     fullWidth: false,
     lastItemDim: true,
   },
   {
-    label: 'API',
-    items: ['cauce-api · REST + webhooks + admin panel'],
+    label: t('arch.layer.api'),
+    items: [t('arch.api.label')],
     color: 'stone',
     fullWidth: true,
   },
@@ -58,19 +72,20 @@ const colorClasses: Record<LayerColor, string> = {
 const barBase =
   'flex-1 min-w-[110px] flex items-center justify-center text-center font-mono text-[11px] tracking-wide border rounded-lg px-4 py-3 md:py-0 md:h-12 whitespace-normal md:whitespace-nowrap transition-opacity duration-200 hover:opacity-80';
 
+// Tech/product names: not translated.
 const stack = ['Spring Boot 3.x', 'Kotlin', 'Gradle', 'PostgreSQL', 'Redis', 'Docker'];
 ---
 
 <Section id="arquitectura">
   <!-- Eyebrow -->
   <div class="mb-5 reveal">
-    <Eyebrow color="teal">STACK TÉCNICO</Eyebrow>
+    <Eyebrow color="teal">{t('arch.eyebrow')}</Eyebrow>
   </div>
 
   <!-- H2 -->
   <h2 class="font-display text-[clamp(36px,4.5vw,60px)] tracking-[-2px] leading-none mb-16 reveal">
-    Decisiones tomadas.<br />
-    <em class="italic text-teal-500">Sin compromiso.</em>
+    {t('arch.title.line1')}<br />
+    <em class="italic text-teal-500">{t('arch.title.emphasis')}</em>
   </h2>
 
   <!-- Terminal window -->
@@ -120,7 +135,7 @@ const stack = ['Spring Boot 3.x', 'Kotlin', 'Gradle', 'PostgreSQL', 'Redis', 'Do
         class="flex items-center gap-2.5 flex-wrap pt-6 mt-2 border-t border-[var(--border)]"
       >
         <span class="font-mono text-[10px] uppercase tracking-[2px] text-stone-600 mr-1">
-          STACK
+          {t('arch.stack.label')}
         </span>
         {
           stack.map((s) => (

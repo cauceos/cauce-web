@@ -1,5 +1,14 @@
 ---
 import Logo from '../Logo.astro';
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <footer class="border-t border-[var(--border)] py-12 mt-12">
@@ -14,7 +23,7 @@ import Logo from '../Logo.astro';
           </span>
         </a>
         <span class="w-px h-4 bg-[var(--border)]"></span>
-        <span class="font-mono text-[10px] text-stone-600 tracking-wider">by Payoyo Dev</span>
+        <span class="font-mono text-[10px] text-stone-600 tracking-wider">{t('footer.by')}</span>
       </div>
 
       <!-- Links + crédito -->
@@ -23,7 +32,7 @@ import Logo from '../Logo.astro';
           href="mailto:hola@cauce.dev"
           class="font-body text-xs text-stone-600 hover:text-stone-400 transition-colors duration-200"
         >
-          hola@cauce.dev
+          {t('footer.email')}
         </a>
         <a
           href="https://github.com/cauceos"
@@ -41,7 +50,7 @@ import Logo from '../Logo.astro';
         >
           X
         </a>
-        <span class="font-mono text-[10px] text-stone-700 tracking-wider">cauce.dev · 2025</span>
+        <span class="font-mono text-[10px] text-stone-700 tracking-wider">{t('footer.year')}</span>
       </div>
     </div>
   </div>

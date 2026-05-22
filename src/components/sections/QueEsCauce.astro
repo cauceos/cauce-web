@@ -4,14 +4,23 @@
 // .light-section, so the whole block turns cream (#ECEEE8) with dark text.
 import Section from '../ui/Section.astro';
 import Eyebrow from '../ui/Eyebrow.astro';
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 
 const features = [
   {
     icon: '🌊',
     borderColor: 'border-t-teal-600',
     iconBg: 'bg-teal-500/10',
-    title: 'Multicanal desde el primer día',
-    body: 'WhatsApp, Telegram, voz y web chat en un solo runtime. Sin duplicar lógica de negocio. Sin mantener cuatro integraciones por separado. El cauce recibe todos los flujos.',
+    title: t('whatIs.feature1.title'),
+    body: t('whatIs.feature1.body'),
     tag: 'cauce-channels',
     tagColor: 'text-teal-600 border-teal-600/30 bg-teal-500/5',
   },
@@ -19,8 +28,8 @@ const features = [
     icon: '🧠',
     borderColor: 'border-t-moss-500',
     iconBg: 'bg-moss-500/10',
-    title: 'Memoria y contexto persistente',
-    body: 'Los agentes recuerdan. Memoria por conversación, por usuario y por tenant. Soporte para múltiples LLMs intercambiables sin tocar el código del agente.',
+    title: t('whatIs.feature2.title'),
+    body: t('whatIs.feature2.body'),
     tag: 'cauce-memory',
     tagColor: 'text-moss-500 border-moss-500/30 bg-moss-500/5',
   },
@@ -28,8 +37,8 @@ const features = [
     icon: '🏗️',
     borderColor: 'border-t-slate-500',
     iconBg: 'bg-slate-500/10',
-    title: 'Multi-tenant y observable',
-    body: 'Diseñado para que una sola instancia sirva a muchos clientes. Métricas, trazas y logs integrados. Cada tenant aislado desde la arquitectura, no como añadido posterior.',
+    title: t('whatIs.feature3.title'),
+    body: t('whatIs.feature3.body'),
     tag: 'cauce-core',
     tagColor: 'text-slate-500 border-slate-500/30 bg-slate-500/5',
   },
@@ -42,22 +51,20 @@ const cardBase =
 <Section id="que-es" variant="light">
   <!-- Eyebrow — teal-600 for contrast on the light background -->
   <div class="mb-5 reveal">
-    <Eyebrow color="teal" class="text-teal-600">QUÉ ES CAUCE</Eyebrow>
+    <Eyebrow color="teal" class="text-teal-600">{t('whatIs.eyebrow')}</Eyebrow>
   </div>
 
   <!-- H2 -->
   <h2
     class="font-display text-[clamp(36px,4.5vw,60px)] tracking-[-2px] leading-[1.05] mb-5 text-stone-950 reveal"
   >
-    Infraestructura real.<br />
-    <em class="italic text-teal-600">No demos.</em>
+    {t('whatIs.title.line1')}<br />
+    <em class="italic text-teal-600">{t('whatIs.title.emphasis')}</em>
   </h2>
 
   <!-- Subtitle -->
   <p class="font-body text-base text-stone-600 leading-relaxed max-w-[560px] mb-16 reveal">
-    Una plataforma modular que conecta tus canales, gestiona la memoria de tus
-    agentes y expone todo vía API. Construida sobre Spring Boot, pensada para
-    consultoras que entregan proyectos reales a clientes reales.
+    {t('whatIs.subtitle')}
   </p>
 
   <!-- 3 feature cards (glued: 3px divider + shared outer corners) -->
