@@ -1,0 +1,94 @@
+---
+// Problema.astro — "El problema": 4 stacked pain points + sticky quote.
+// Uses the shared Section wrapper so it inherits the unified 1320px grid.
+import Section from '../ui/Section.astro';
+import Eyebrow from '../ui/Eyebrow.astro';
+
+const painPoints = [
+  {
+    icon: '💸',
+    title: 'Demos que no llegan a producción',
+    body: 'El 80% de los proyectos de agentes de IA que ves en LinkedIn son prototipos que nadie usa en producción. Código sin tests, sin multi-tenant, sin observabilidad.',
+  },
+  {
+    icon: '🔒',
+    title: 'Vendor lock-in disfrazado de facilidad',
+    body: 'Las plataformas SaaS de agentes te cobran por mensaje, te atan a su LLM y desaparecen cuando pivotan. Tu negocio no puede depender de eso.',
+  },
+  {
+    icon: '🧩',
+    title: 'Integraciones que no escalan',
+    body: 'WhatsApp por un lado, Telegram por otro, la API propia en un tercer repo. Cada canal con su lógica de negocio duplicada. Un infierno de mantenimiento.',
+  },
+  {
+    icon: '🕳️',
+    title: 'Sin infraestructura europea de referencia',
+    body: 'Todo lo serio viene de EEUU, con precios en dólares, servidores en us-east-1 y sin pensar en GDPR. Europa necesita su propia infraestructura.',
+  },
+];
+
+const cardBase =
+  'bg-[var(--color-stone-900)] border border-[var(--border)] px-7 py-6 flex items-start gap-4 transition-all duration-200 hover:bg-[var(--color-stone-800)] hover:border-[rgba(224,90,78,0.2)]';
+---
+
+<Section id="problema">
+  <!-- Eyebrow -->
+  <div class="mb-5">
+    <Eyebrow color="teal">POR QUÉ EXISTE CAUCE</Eyebrow>
+  </div>
+
+  <!-- H2 -->
+  <h2 class="font-display text-[clamp(36px,4.5vw,60px)] tracking-[-2px] leading-none mb-16">
+    Hay demasiado<br />
+    <em class="italic text-teal-500">vende-humos</em><br />
+    <span class="text-stone-600">en IA.</span>
+  </h2>
+
+  <!-- Grid: pain points + sticky quote -->
+  <div class="grid grid-cols-1 md:grid-cols-[1fr_440px] gap-12 md:gap-20 items-start">
+    <!-- Left: stacked pain points (2px gap = thin divider, shared corners) -->
+    <div class="flex flex-col gap-[2px]">
+      {
+        painPoints.map((p, i) => {
+          const corner =
+            i === 0
+              ? 'rounded-t-xl rounded-b-none'
+              : i === painPoints.length - 1
+                ? 'rounded-b-xl rounded-t-none'
+                : 'rounded-none';
+          return (
+            <div class:list={[cardBase, corner]}>
+              <span class="text-lg flex-shrink-0 mt-0.5 opacity-70">{p.icon}</span>
+              <div>
+                <h3 class="text-sm font-semibold text-stone-100 mb-1.5">{p.title}</h3>
+                <p class="text-[13px] text-stone-400 leading-relaxed">{p.body}</p>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+
+    <!-- Right: sticky quote -->
+    <div
+      class="sticky top-24 bg-[var(--color-stone-900)] border border-[var(--border)] rounded-2xl p-10 flex flex-col gap-7"
+    >
+      <div class="font-display text-[64px] text-teal-500 leading-[0.4] opacity-40">&ldquo;</div>
+      <p
+        class="font-display text-[22px] tracking-[-0.5px] leading-snug font-light text-stone-100"
+      >
+        Cauce existe porque el sector lleva demasiado tiempo optimizando para la
+        demo y no para la producción.
+        <br /><br />
+        Es hora de construir algo que <em class="italic text-teal-500"
+          >aguante de verdad.</em
+        >
+      </p>
+      <div
+        class="font-mono text-[10px] tracking-[2px] uppercase text-stone-400 pt-5 border-t border-[var(--border)]"
+      >
+        — CAUCE OS · CAUCE.DEV
+      </div>
+    </div>
+  </div>
+</Section>
