@@ -141,3 +141,19 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Astro
+.astro/
+dist/
+
+# Local env (also covered by .env.* above, listed here explicitly)
+.env.local
+
+# macOS
+.DS_Store
+
+# Vercel
+.vercel
+
+# Claude Code local settings
+.claude/settings.local.json

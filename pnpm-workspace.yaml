@@ -1,0 +1,6 @@
+# pnpm settings (pnpm 11 reads build-script approvals from here, not package.json).
+# These native packages are allowed to run their install/build scripts.
+allowBuilds:
+  esbuild: true
+  sharp: true
+  '@tailwindcss/oxide': true
