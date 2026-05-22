@@ -61,8 +61,9 @@ export const ui = {
     'problem.pain4.body':
       'Everything serious comes from the US, with prices in dollars, servers in us-east-1, and no thought for GDPR. Europe needs its own infrastructure.',
 
-    'problem.quote.text':
-      'Cauce exists because the industry has been optimising for the demo, not for production, for far too long. It is time to build something that',
+    'problem.quote.part1':
+      'Cauce exists because the industry has been optimising for the demo, not for production, for far too long.',
+    'problem.quote.part2': 'It is time to build something that',
     'problem.quote.emphasis': 'actually holds up.',
     'problem.quote.author': '— CAUCE OS · CAUCE.DEV',
 
@@ -211,8 +212,9 @@ export const ui = {
     'problem.pain4.body':
       'Todo lo serio viene de EEUU, con precios en dólares, servidores en us-east-1 y sin pensar en GDPR. Europa necesita su propia infraestructura.',
 
-    'problem.quote.text':
-      'Cauce existe porque el sector lleva demasiado tiempo optimizando para la demo y no para la producción. Es hora de construir algo que',
+    'problem.quote.part1':
+      'Cauce existe porque el sector lleva demasiado tiempo optimizando para la demo y no para la producción.',
+    'problem.quote.part2': 'Es hora de construir algo que',
     'problem.quote.emphasis': 'aguante de verdad.',
     'problem.quote.author': '— CAUCE OS · CAUCE.DEV',
 

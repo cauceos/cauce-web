@@ -23,12 +23,15 @@ const links: { code: Lang; label: string; href: string }[] = [
         <a
           href={link.href}
           class:list={[
-            'px-2.5 py-0.5 rounded-full transition-colors duration-200',
+            'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full transition-colors duration-200',
             isActive
               ? 'bg-[var(--color-stone-800)] text-stone-100'
               : 'text-stone-600 hover:text-stone-400',
           ]}
         >
+          {isActive && (
+            <span class="w-1 h-1 rounded-full bg-teal-500" aria-hidden="true"></span>
+          )}
           {link.label}
         </a>
       );
