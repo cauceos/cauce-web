@@ -2,6 +2,7 @@
 // Nav.astro — fixed top bar with blur. Logo + anchor links + waitlist CTA.
 import Logo from './Logo.astro';
 import Button from './ui/Button.astro';
+import LangSwitcher from './ui/LangSwitcher.astro';
 import { useTranslations } from '../i18n/utils';
 import type { Lang } from '../i18n/ui';
 
@@ -41,8 +42,11 @@ const linkClass =
         {links.map((link) => <a href={link.href} class={linkClass}>{link.label}</a>)}
       </div>
 
-      <!-- Right: primary CTA (stays visible on mobile) -->
-      <Button href="#waitlist" variant="primary" size="sm">{t('nav.cta')}</Button>
+      <!-- Right: language switcher + primary CTA -->
+      <div class="flex items-center gap-4">
+        <LangSwitcher current={lang} />
+        <Button href="#waitlist" variant="primary" size="sm">{t('nav.cta')}</Button>
+      </div>
     </div>
   </div>
 </nav>
