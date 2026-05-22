@@ -1,0 +1,156 @@
+---
+// BuildingInPublic.astro — dark. Manifesto (left) + X-style devlog feed (right).
+import Section from '../ui/Section.astro';
+import Eyebrow from '../ui/Eyebrow.astro';
+import Button from '../ui/Button.astro';
+
+interface ManifestoItem {
+  num: string;
+  text: string;
+  bold: string;
+}
+
+const manifesto: ManifestoItem[] = [
+  {
+    num: '01',
+    text: 'Un solo developer, desde España. Sin rondas de financiación, sin equipo de 20 personas, sin oficina en Madrid. Solo código consistente y trabajo honesto.',
+    bold: 'Un solo developer, desde España.',
+  },
+  {
+    num: '02',
+    text: 'Todo el proceso, en público. Cada decisión técnica, cada error, cada refactorización. Si algo no funciona, lo digo. Si algo funciona bien, también.',
+    bold: 'Todo el proceso, en público.',
+  },
+  {
+    num: '03',
+    text: 'El código es la documentación. Sin marketing vacío. Si quieres saber si Cauce es serio, abre el repo, lee el código, y saca tus propias conclusiones.',
+    bold: 'El código es la documentación.',
+  },
+  {
+    num: '04',
+    text: 'Europa necesita su infraestructura. GDPR, servidores en la UE, idioma español de primera clase. No somos un fork americano con bandera española.',
+    bold: 'Europa necesita su infraestructura.',
+  },
+];
+
+interface Devlog {
+  meta: string;
+  text: string;
+  highlight: string | null;
+  highlightColor: 'teal' | 'moss' | null;
+  after: string | null;
+}
+
+const devlogs: Devlog[] = [
+  {
+    meta: 'HACE 2 DÍAS · DEVLOG #4',
+    text: 'Primer canal funcionando en local.',
+    highlight: 'WhatsApp → cauce-core → respuesta en 340ms.',
+    highlightColor: 'teal',
+    after: 'Mañana, memoria por usuario.',
+  },
+  {
+    meta: 'HACE 1 SEMANA · DEVLOG #3',
+    text: 'Decisión:',
+    highlight: '4 módulos en lugar de 10.',
+    highlightColor: 'moss',
+    after: 'Es más fácil dividir cuando duele que unificar cuando ya está separado.',
+  },
+  {
+    meta: 'HACE 2 SEMANAS · DEVLOG #1',
+    text: 'Esto empieza. He visto demasiados proyectos de IA que no llegan a producción. Cauce va a ser diferente.',
+    highlight: null,
+    highlightColor: null,
+    after: null,
+  },
+];
+---
+
+<Section id="bip">
+  <!-- Eyebrow -->
+  <div class="mb-5">
+    <Eyebrow color="teal">BUILDING IN PUBLIC</Eyebrow>
+  </div>
+
+  <!-- H2 -->
+  <h2 class="font-display text-[clamp(36px,4.5vw,60px)] tracking-[-2px] leading-none mb-16">
+    Construido<br />
+    <em class="italic text-teal-500">en abierto.</em>
+  </h2>
+
+  <!-- Grid: manifesto + feed -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
+    <!-- Left: manifesto -->
+    <div>
+      <div class="flex flex-col gap-6">
+        {
+          manifesto.map((item) => (
+            <div class="flex gap-4 items-start">
+              <span class="font-mono text-[10px] text-teal-500 tracking-[2px] pt-1 flex-shrink-0 w-7">
+                {item.num}
+              </span>
+              <p class="text-[15px] text-[#C8CAC2] leading-relaxed font-light">
+                <strong class="text-stone-100 font-medium">{item.bold}</strong>
+                {' '}
+                {item.text.replace(item.bold + ' ', '')}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="mt-10">
+        <Button variant="ghost" size="md" href="https://github.com/cauceos">
+          Seguir el progreso →
+        </Button>
+      </div>
+    </div>
+
+    <!-- Right: devlog feed -->
+    <div
+      class="bg-[var(--color-stone-900)] border border-[var(--border)] rounded-2xl overflow-hidden"
+    >
+      <!-- Feed header -->
+      <div class="px-7 py-5 border-b border-[var(--border)] flex items-center gap-3">
+        <div
+          class="w-9 h-9 rounded-full bg-linear-to-br from-teal-600 to-teal-500 flex items-center justify-center font-display text-base italic text-stone-950 flex-shrink-0"
+        >
+          C
+        </div>
+        <div class="flex flex-col gap-0.5">
+          <span class="text-[13px] font-semibold text-stone-100">Cauce OS</span>
+          <span class="font-mono text-[10px] text-stone-400 tracking-wide">
+            @cauce_ai · cauce.dev
+          </span>
+        </div>
+      </div>
+
+      <!-- Feed posts -->
+      <div class="px-7 py-5 flex flex-col gap-4">
+        {
+          devlogs.map((post) => (
+            <div class="p-4 bg-[var(--color-stone-800)] rounded-xl border border-[var(--border)]">
+              <div class="font-mono text-[9px] text-stone-600 tracking-[1px] mb-2">
+                {post.meta}
+              </div>
+              <p class="text-[13px] text-stone-300 leading-relaxed">
+                {post.text}
+                {post.highlight && (
+                  <span
+                    class:list={[
+                      'ml-1',
+                      post.highlightColor === 'teal' ? 'text-teal-400' : 'text-moss-400',
+                    ]}
+                  >
+                    {post.highlight}
+                  </span>
+                )}
+                {post.after && <span class="ml-1">{post.after}</span>}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</Section>
