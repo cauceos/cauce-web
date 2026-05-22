@@ -69,12 +69,12 @@ const devlogs: Devlog[] = [
 
 <Section id="bip">
   <!-- Eyebrow -->
-  <div class="mb-5">
+  <div class="mb-5 reveal">
     <Eyebrow color="teal">BUILDING IN PUBLIC</Eyebrow>
   </div>
 
   <!-- H2 -->
-  <h2 class="font-display text-[clamp(36px,4.5vw,60px)] tracking-[-2px] leading-none mb-16">
+  <h2 class="font-display text-[clamp(36px,4.5vw,60px)] tracking-[-2px] leading-none mb-16 reveal">
     Construido<br />
     <em class="italic text-teal-500">en abierto.</em>
   </h2>
@@ -82,7 +82,7 @@ const devlogs: Devlog[] = [
   <!-- Grid: manifesto + feed -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
     <!-- Left: manifesto -->
-    <div>
+    <div class="reveal">
       <div class="flex flex-col gap-6">
         {
           manifesto.map((item) => (
@@ -109,7 +109,7 @@ const devlogs: Devlog[] = [
 
     <!-- Right: devlog feed -->
     <div
-      class="bg-[var(--color-stone-900)] border border-[var(--border)] rounded-2xl overflow-hidden"
+      class="bg-[var(--color-stone-900)] border border-[var(--border)] rounded-2xl overflow-hidden reveal"
     >
       <!-- Feed header -->
       <div class="px-7 py-5 border-b border-[var(--border)] flex items-center gap-3">

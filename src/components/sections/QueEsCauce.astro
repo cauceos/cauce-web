@@ -41,20 +41,20 @@ const cardBase =
 
 <Section id="que-es" variant="light">
   <!-- Eyebrow — teal-600 for contrast on the light background -->
-  <div class="mb-5">
+  <div class="mb-5 reveal">
     <Eyebrow color="teal" class="text-teal-600">QUÉ ES CAUCE</Eyebrow>
   </div>
 
   <!-- H2 -->
   <h2
-    class="font-display text-[clamp(36px,4.5vw,60px)] tracking-[-2px] leading-[1.05] mb-5 text-stone-950"
+    class="font-display text-[clamp(36px,4.5vw,60px)] tracking-[-2px] leading-[1.05] mb-5 text-stone-950 reveal"
   >
     Infraestructura real.<br />
     <em class="italic text-teal-600">No demos.</em>
   </h2>
 
   <!-- Subtitle -->
-  <p class="font-body text-base text-stone-600 leading-relaxed max-w-[560px] mb-16">
+  <p class="font-body text-base text-stone-600 leading-relaxed max-w-[560px] mb-16 reveal">
     Una plataforma modular que conecta tus canales, gestiona la memoria de tus
     agentes y expone todo vía API. Construida sobre Spring Boot, pensada para
     consultoras que entregan proyectos reales a clientes reales.
@@ -71,7 +71,7 @@ const cardBase =
               ? 'rounded-r-2xl rounded-l-none'
               : 'rounded-none';
         return (
-          <div class:list={[cardBase, f.borderColor, corner]}>
+          <div class:list={[cardBase, f.borderColor, corner, 'reveal', `reveal-delay-${i + 1}`]}>
             <div
               class:list={[
                 'w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-5',
