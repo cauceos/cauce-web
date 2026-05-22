@@ -1,9 +1,13 @@
 /* global.css — Tailwind 4 entry + project theme + base styles.
  * CSS-first config: tokens are declared in @theme (no tailwind.config.mjs). */
 
+/* Declare layer order up front so Tailwind utilities (hover, etc.) can
+ * override the reveal animation's final transform. `reveal` sits before
+ * `utilities`, so hover transforms win once an element is revealed. */
+@layer theme, base, components, reveal, utilities;
 @import "tailwindcss";
 @import "./tokens.css";
-@import "./animations.css";
+@import "./animations.css" layer(reveal);
 
 /* === Theme tokens ===
  * Mapped to Tailwind 4 namespaces so utilities are generated:
