@@ -1,0 +1,36 @@
+---
+// PulseDot.astro — animated live indicator with a soft glow.
+interface Props {
+  color?: 'teal' | 'moss';
+  size?: number;
+}
+
+const { color = 'teal', size = 7 } = Astro.props;
+
+// Reference theme vars (no hardcoded hex outside tokens — CLAUDE.md §19).
+const dot = color === 'moss' ? 'var(--color-moss-400)' : 'var(--color-teal-500)';
+---
+
+<span
+  class="pulse-dot"
+  style={`--dot:${dot};width:${size}px;height:${size}px;box-shadow:0 0 ${size}px var(--dot);`}
+></span>
+
+<style>
+  .pulse-dot {
+    display: inline-block;
+    border-radius: 9999px;
+    background: var(--dot);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+</style>

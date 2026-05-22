@@ -1,11 +1,94 @@
 ---
+// Temporary UI showcase — verifies the logo + primitives render correctly.
+// Replaced by the real landing sections in the next milestone.
 import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+import Section from '../components/ui/Section.astro';
+import Button from '../components/ui/Button.astro';
+import Badge from '../components/ui/Badge.astro';
+import Eyebrow from '../components/ui/Eyebrow.astro';
+import PulseDot from '../components/ui/PulseDot.astro';
 ---
 
-<Base>
-  <main class="min-h-screen flex items-center justify-center">
-    <p class="font-display text-4xl text-teal-500 italic">
-      Cau<em>ce</em>
-    </p>
-  </main>
+<Base title="Cauce — UI showcase">
+  <Section id="showcase">
+    <div class="flex flex-col gap-16">
+      <!-- Logo · sizes -->
+      <div>
+        <Eyebrow>LOGO · SIZES</Eyebrow>
+        <div class="mt-6 flex flex-wrap items-end gap-8">
+          <Logo size={80} />
+          <Logo size={48} />
+          <Logo size={32} />
+          <Logo size={24} />
+          <Logo size={16} />
+        </div>
+      </div>
+
+      <!-- Logo · variants -->
+      <div>
+        <Eyebrow>LOGO · VARIANTS</Eyebrow>
+        <div class="mt-6 flex flex-wrap items-center gap-6">
+          <div class="flex flex-col items-center gap-2 rounded-lg bg-stone-900 p-6">
+            <Logo size={48} variant="dark" />
+            <span class="font-mono text-[10px] text-stone-400">dark</span>
+          </div>
+          <div class="flex flex-col items-center gap-2 rounded-lg bg-stone-100 p-6">
+            <Logo size={48} variant="light" />
+            <span class="font-mono text-[10px] text-stone-600">light</span>
+          </div>
+          <div class="flex flex-col items-center gap-2 rounded-lg bg-stone-900 p-6">
+            <Logo size={48} variant="mono" />
+            <span class="font-mono text-[10px] text-stone-400">mono</span>
+          </div>
+          <div class="flex flex-col items-center gap-2 rounded-lg bg-teal-500 p-6">
+            <Logo size={48} variant="white" />
+            <span class="font-mono text-[10px] text-stone-950">white</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Eyebrow + wordmark -->
+      <div>
+        <Eyebrow withDot>OPEN SOURCE · BUILDING IN PUBLIC</Eyebrow>
+        <h1 class="mt-6 font-display text-6xl tracking-tight">
+          Cau<em class="italic text-teal-500">ce</em>
+        </h1>
+      </div>
+
+      <!-- Buttons -->
+      <div>
+        <Eyebrow>BUTTONS</Eyebrow>
+        <div class="mt-6 flex flex-wrap items-center gap-4">
+          <Button variant="primary" size="sm">Primary sm</Button>
+          <Button variant="primary" size="md">Primary md</Button>
+          <Button variant="primary" size="lg">Primary lg</Button>
+          <Button variant="ghost" size="sm">Ghost sm</Button>
+          <Button variant="ghost" size="md">Ghost md</Button>
+          <Button variant="ghost" size="lg" href="#showcase">Ghost lg link</Button>
+        </div>
+      </div>
+
+      <!-- Badges -->
+      <div>
+        <Eyebrow>BADGES</Eyebrow>
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <Badge variant="teal">teal</Badge>
+          <Badge variant="moss">moss</Badge>
+          <Badge variant="slate">slate</Badge>
+          <Badge variant="muted">muted</Badge>
+        </div>
+      </div>
+
+      <!-- Pulse dots -->
+      <div>
+        <Eyebrow color="moss">PULSE DOT</Eyebrow>
+        <div class="mt-6 flex items-center gap-6">
+          <PulseDot color="teal" />
+          <PulseDot color="moss" />
+          <PulseDot color="teal" size={12} />
+        </div>
+      </div>
+    </div>
+  </Section>
 </Base>

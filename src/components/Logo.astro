@@ -1,0 +1,37 @@
+---
+// Logo.astro — Estrato V4 symbol. Inline SVG, never <img>.
+// Four concentric arcs (variable weight) + teal nadir dot.
+interface Props {
+  size?: number;
+  variant?: 'dark' | 'light' | 'mono' | 'white';
+}
+
+const { size = 32, variant = 'dark' } = Astro.props;
+
+const colors: Record<NonNullable<Props['variant']>, string[]> = {
+  dark: ['#4A4B42', '#5A8CAB', '#6FAF82', '#2DD4C0'],
+  light: ['#8C8D82', '#3D6B8A', '#3A6B4A', '#1BB8A6'],
+  mono: ['#2DD4C0', '#2DD4C0', '#2DD4C0', '#2DD4C0'],
+  white: ['white', 'white', 'white', 'white'],
+};
+
+const c = colors[variant];
+const dotColor =
+  variant === 'light' ? '#1BB8A6' : variant === 'white' ? 'white' : '#2DD4C0';
+---
+
+<svg
+  width={size}
+  height={size * 0.75}
+  viewBox="0 0 80 60"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="Cauce"
+>
+  <path d="M 4 22 Q 40 72 76 22" stroke={c[0]} stroke-width="1.8" stroke-linecap="round" />
+  <path d="M 12 22 Q 40 62 68 22" stroke={c[1]} stroke-width="2.4" stroke-linecap="round" />
+  <path d="M 20 22 Q 40 52 60 22" stroke={c[2]} stroke-width="3.0" stroke-linecap="round" />
+  <path d="M 28 22 Q 40 42 52 22" stroke={c[3]} stroke-width="4.0" stroke-linecap="round" />
+  <circle cx="40" cy="40" r="3" fill={dotColor} />
+</svg>

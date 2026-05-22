@@ -1,0 +1,22 @@
+---
+// Badge.astro — small mono pill. teal / moss / slate / muted.
+interface Props {
+  variant?: 'teal' | 'moss' | 'slate' | 'muted';
+}
+
+const { variant = 'muted' } = Astro.props;
+
+const base =
+  'inline-flex items-center font-mono text-[10px] tracking-wider px-3 py-1 rounded-full border';
+
+const variants: Record<NonNullable<Props['variant']>, string> = {
+  teal: 'text-teal-400 border-teal-500/30 bg-teal-500/8',
+  moss: 'text-moss-400 border-moss-500/30 bg-moss-500/8',
+  slate: 'text-slate-400 border-slate-500/30 bg-slate-500/8',
+  muted: 'text-stone-400 border-stone-700 bg-stone-800',
+};
+
+const classes = `${base} ${variants[variant]}`;
+---
+
+<span class={classes}><slot /></span>

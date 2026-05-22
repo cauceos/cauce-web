@@ -1,0 +1,23 @@
+---
+// Eyebrow.astro — monospace uppercase label, optional leading pulse dot.
+import PulseDot from './PulseDot.astro';
+
+interface Props {
+  withDot?: boolean;
+  color?: 'teal' | 'moss';
+}
+
+const { withDot = false, color = 'teal' } = Astro.props;
+
+const colorClass = color === 'moss' ? 'text-moss-400' : 'text-teal-500';
+---
+
+<span
+  class:list={[
+    'inline-flex items-center gap-2.5 font-mono text-[10px] tracking-eyebrow uppercase',
+    colorClass,
+  ]}
+>
+  {withDot && <PulseDot color={color} />}
+  <slot />
+</span>

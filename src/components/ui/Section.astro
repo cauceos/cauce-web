@@ -1,0 +1,25 @@
+---
+// Section.astro — consistent vertical rhythm + centered content column.
+// variant 'light' adds .light-section, which flips the semantic vars
+// (--bg/--text/...) defined in tokens.css for the one light area.
+interface Props {
+  id?: string;
+  variant?: 'dark' | 'light';
+  class?: string;
+}
+
+const { id, variant = 'dark', class: className } = Astro.props;
+---
+
+<section
+  id={id}
+  class:list={[
+    'bg-[var(--bg)] text-[var(--text)] py-20 md:py-[120px]',
+    variant === 'light' && 'light-section',
+    className,
+  ]}
+>
+  <div class="max-w-content mx-auto px-5 md:px-10">
+    <slot />
+  </div>
+</section>

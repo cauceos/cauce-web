@@ -1,0 +1,40 @@
+---
+// Button.astro — primary / ghost. Renders <a> when href is set, else <button>.
+interface Props {
+  variant?: 'primary' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  type?: 'button' | 'submit';
+}
+
+const { variant = 'primary', size = 'md', href, type = 'button' } = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center rounded-lg font-medium font-body transition-all duration-200 hover:-translate-y-px';
+
+const variants: Record<NonNullable<Props['variant']>, string> = {
+  primary: 'bg-teal-500 text-stone-950 hover:bg-teal-400',
+  ghost:
+    'bg-transparent border border-stone-700 text-stone-200 hover:border-stone-600 hover:text-stone-100',
+};
+
+const sizes: Record<NonNullable<Props['size']>, string> = {
+  sm: 'px-4 py-2 text-xs',
+  md: 'px-6 py-3 text-sm',
+  lg: 'px-7 py-3.5 text-base',
+};
+
+const classes = `${base} ${variants[variant]} ${sizes[size]}`;
+---
+
+{
+  href ? (
+    <a href={href} class={classes}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class={classes}>
+      <slot />
+    </button>
+  )
+}
