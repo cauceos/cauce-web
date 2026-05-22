@@ -65,6 +65,8 @@
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
+    /* Compensate the fixed 80px nav when jumping to anchors. */
+    scroll-padding-top: 80px;
   }
 
   body {
@@ -75,6 +77,19 @@
     line-height: 1.65;
     /* Offset for the fixed 80px nav so content never hides beneath it. */
     padding-top: 80px;
+  }
+
+  /* Keyboard focus indicator (visible only for keyboard users). */
+  *:focus-visible {
+    outline: 2px solid var(--color-teal-500);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Text selection highlight. */
+  ::selection {
+    background: var(--color-teal-500);
+    color: var(--color-stone-950);
   }
 }
 
