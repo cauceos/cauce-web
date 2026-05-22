@@ -3,6 +3,7 @@
 
 @import "tailwindcss";
 @import "./tokens.css";
+@import "./animations.css";
 
 /* === Theme tokens ===
  * Mapped to Tailwind 4 namespaces so utilities are generated:
