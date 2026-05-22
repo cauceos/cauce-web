@@ -26,14 +26,15 @@ const stats = [
   </div>
 
   <!-- Main content (above glows) -->
-  <div class="relative z-10 max-w-content mx-auto px-5 md:px-10">
-    <div class="grid grid-cols-1 min-[960px]:grid-cols-[1fr_380px] gap-20 items-center">
+  <div class="relative z-10 container-page">
+    <!-- Eyebrow sits above the grid so the H1 and the symbol share the same top line -->
+    <div class="mb-9">
+      <Eyebrow withDot color="teal">OPEN SOURCE · BUILDING IN PUBLIC</Eyebrow>
+    </div>
+
+    <div class="grid grid-cols-1 min-[960px]:grid-cols-[1fr_380px] gap-20 items-start">
       <!-- Left column -->
       <div>
-        <div class="mb-9">
-          <Eyebrow withDot color="teal">OPEN SOURCE · BUILDING IN PUBLIC</Eyebrow>
-        </div>
-
         <h1
           class="font-display text-[clamp(52px,6.5vw,92px)] tracking-[-3px] leading-[0.98] mb-7"
         >
@@ -68,8 +69,8 @@ const stats = [
         </div>
       </div>
 
-      <!-- Right column: breathing symbol (hidden under 960px) -->
-      <div class="hidden min-[960px]:flex items-center justify-center">
+      <!-- Right column: breathing symbol (hidden under 960px), top-aligned with the H1 -->
+      <div class="hidden min-[960px]:flex items-start justify-center">
         <div class="relative">
           <div
             class="absolute inset-[-40px] rounded-full pointer-events-none"
