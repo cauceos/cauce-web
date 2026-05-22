@@ -1,0 +1,95 @@
+---
+// Waitlist.astro — dark with a premium teal-accented card. Email form with
+// optimistic success state (no backend yet; later wired to Loops/Resend).
+import Section from '../ui/Section.astro';
+import Logo from '../Logo.astro';
+---
+
+<Section id="waitlist">
+  <!-- Premium card -->
+  <div
+    class="relative overflow-hidden max-w-[840px] mx-auto rounded-3xl border border-[rgba(45,212,192,0.15)] bg-[linear-gradient(135deg,rgba(45,212,192,0.06)_0%,rgba(78,139,98,0.04)_60%,transparent_100%)] px-10 py-20 md:px-20 md:py-24 text-center"
+  >
+    <!-- Decorative top glow -->
+    <div
+      class="absolute -top-20 left-1/2 -translate-x-1/2 w-[400px] h-[300px] rounded-full bg-[radial-gradient(circle,rgba(45,212,192,0.08)_0%,transparent_70%)] pointer-events-none"
+    >
+    </div>
+
+    <!-- Content (above glow) -->
+    <div class="relative z-10">
+      <!-- Logo -->
+      <div class="flex justify-center mb-8">
+        <Logo size={72} />
+      </div>
+
+      <!-- H2 -->
+      <h2 class="font-display text-[clamp(36px,4vw,56px)] tracking-[-2px] leading-[1.05] mb-4">
+        Sé el primero en<br />
+        probar <em class="italic text-teal-500">Cauce.</em>
+      </h2>
+
+      <!-- Subtitle -->
+      <p
+        class="font-body text-base text-[#C8CAC2] leading-relaxed font-light max-w-[480px] mx-auto mb-11"
+      >
+        Estamos construyendo en abierto. Cuando lancemos la primera versión
+        pública, los de la lista serán los primeros en acceder.
+      </p>
+
+      <!-- Form -->
+      <form
+        id="waitlist-form"
+        class="flex flex-col sm:flex-row gap-2.5 max-w-[440px] mx-auto mb-4"
+      >
+        <input
+          type="email"
+          name="email"
+          required
+          placeholder="tu@email.com"
+          class="flex-1 bg-[var(--color-stone-900)] border border-[var(--border)] rounded-lg px-5 py-3.5 font-body text-sm text-stone-100 placeholder:text-stone-600 outline-none transition-colors duration-200 focus:border-teal-500/40"
+        />
+        <button
+          type="submit"
+          class="bg-teal-500 text-stone-950 px-6 py-3.5 rounded-lg font-body text-sm font-semibold transition-all duration-200 hover:bg-teal-400 hover:-translate-y-px whitespace-nowrap cursor-pointer"
+        >
+          Apúntame →
+        </button>
+      </form>
+
+      <!-- Success message (hidden by default) -->
+      <div
+        id="waitlist-success"
+        class="hidden items-center justify-center gap-2.5 font-mono text-[13px] text-moss-400 mb-4"
+      >
+        <span>✓</span> Apuntado. Te avisamos cuando abramos.
+      </div>
+
+      <!-- Note -->
+      <p class="font-mono text-[10px] text-stone-600 tracking-wide">
+        Sin spam. Solo cuando haya algo que merezca la pena.
+      </p>
+    </div>
+  </div>
+</Section>
+
+<script>
+  const form = document.getElementById('waitlist-form') as HTMLFormElement | null;
+  const success = document.getElementById('waitlist-success');
+
+  if (form && success) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = form.querySelector('input[name="email"]') as HTMLInputElement;
+      const email = input?.value;
+      if (!email || !email.includes('@')) {
+        if (input) input.style.borderColor = 'rgba(224,90,78,0.5)';
+        return;
+      }
+      // Optimistic UI only for now. Later wired to Loops/Resend.
+      form.style.display = 'none';
+      success.classList.remove('hidden');
+      success.classList.add('flex');
+    });
+  }
+</script>
