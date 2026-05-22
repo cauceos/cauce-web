@@ -1,0 +1,87 @@
+/* global.css — Tailwind 4 entry + project theme + base styles.
+ * CSS-first config: tokens are declared in @theme (no tailwind.config.mjs). */
+
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* === Theme tokens ===
+ * Mapped to Tailwind 4 namespaces so utilities are generated:
+ *   color     -> bg- / text- / border-     font      -> font-
+ *   container -> max-w-                     tracking  -> tracking-
+ */
+@theme {
+  /* Teal — primary (water / flow / action) */
+  --color-teal-300: #90E8E1;
+  --color-teal-400: #5EDDD0;
+  --color-teal-500: #2DD4C0;
+  --color-teal-600: #1BB8A6;
+
+  /* Moss — secondary (vegetation / health / OSS) */
+  --color-moss-300: #96C9A6;
+  --color-moss-400: #6FAF82;
+  --color-moss-500: #4E8B62;
+  --color-moss-600: #3A6B4A;
+
+  /* Slate — tertiary (sky / neutral info) */
+  --color-slate-400: #8AB4CC;
+  --color-slate-500: #5A8CAB;
+  --color-slate-600: #3D6B8A;
+
+  /* Stone — neutrals (warm-tinted, not pure gray) */
+  --color-stone-100: #ECEEE8;
+  --color-stone-200: #D4D5CC;
+  --color-stone-400: #8C8D82;
+  --color-stone-600: #4A4B42;
+  --color-stone-700: #35362E;
+  --color-stone-800: #252620;
+  --color-stone-900: #161713;
+  --color-stone-950: #0E0F0D;
+
+  /* Typefaces */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Geist', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  /* Layout */
+  --container-content: 1160px;
+
+  /* Letter-spacing */
+  --tracking-eyebrow: 0.25em;
+}
+
+/* === Base styles ===
+ * Wrapped in @layer base so the reset never out-ranks Tailwind utilities
+ * (unlayered rules beat layered ones in the cascade). */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background: var(--color-stone-950);
+    color: var(--color-stone-100);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+}
+
+/* === Reduced motion (CLAUDE.md §10) === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

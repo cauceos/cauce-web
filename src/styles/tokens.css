@@ -1,0 +1,53 @@
+/* tokens.css — semantic aliases + typographic scale.
+ *
+ * These are NOT Tailwind base tokens (those live in the @theme block of
+ * global.css). Here we keep:
+ *   1. Semantic surface/text aliases that flip between dark and light.
+ *   2. The fluid typographic scale (clamp) from CLAUDE.md §6.
+ *
+ * Components reference the semantic vars (var(--bg), var(--text), ...) so a
+ * section can switch to light mode just by adding the .light-section class.
+ */
+
+:root {
+  /* === Surfaces (dark — default) === */
+  --bg: #0E0F0D;          /* stone-950 — page background */
+  --surface: #161713;     /* stone-900 — cards, nav */
+  --surface-2: #252620;   /* stone-800 — elevated surface */
+  --border: #2E2F28;      /* hairline border */
+
+  /* === Text (dark — default) === */
+  --text: #ECEEE8;        /* stone-100 — primary text */
+  --text-2: #D4D5CC;      /* stone-200 — secondary text */
+  --muted: #8C8D82;       /* stone-400 — captions, placeholders */
+  --subtle: #4A4B42;      /* stone-600 — disabled, faint */
+
+  /* === Typographic scale (CLAUDE.md §6) === */
+  --fs-display:  clamp(52px, 7vw, 96px);
+  --fs-h1:       clamp(40px, 5vw, 64px);
+  --fs-h2:       clamp(28px, 3.5vw, 42px);
+  --fs-h3:       clamp(20px, 2.5vw, 28px);
+  --fs-body-lg:  clamp(15px, 1.5vw, 18px);
+  --fs-body-md:  14px;
+  --fs-ui:       13px;
+  --fs-caption:  12px;
+  --fs-code:     13px;
+  --fs-badge:    10px;
+  --fs-eyebrow:  10px;
+}
+
+/* === Light section override === */
+/* The only light area is "Qué es Cauce". Add .light-section to its wrapper
+ * to flip the semantic vars; teal shifts to teal-600 for WCAG AA contrast
+ * (handled per-component, see CLAUDE.md §5). */
+.light-section {
+  --bg: #ECEEE8;          /* stone-100 */
+  --surface: #FFFFFF;     /* white — feature cards */
+  --surface-2: #D4D5CC;   /* stone-200 — elevated */
+  --border: #D4D5CC;      /* stone-200 — light border */
+
+  --text: #161713;        /* stone-900 — dark text on light */
+  --text-2: #35362E;      /* stone-700 */
+  --muted: #4A4B42;       /* stone-600 */
+  --subtle: #8C8D82;      /* stone-400 */
+}
