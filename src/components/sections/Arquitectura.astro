@@ -1,0 +1,135 @@
+---
+// Arquitectura.astro — dark again. macOS-style terminal window showing the
+// stack as colour-coded layers, with a stack-chips footer.
+import Section from '../ui/Section.astro';
+import Eyebrow from '../ui/Eyebrow.astro';
+
+type LayerColor = 'teal' | 'moss' | 'slate' | 'stone';
+
+interface Layer {
+  label: string;
+  items: string[];
+  color: LayerColor;
+  fullWidth: boolean;
+  lastItemDim?: boolean;
+}
+
+const layers: Layer[] = [
+  {
+    label: 'CANALES',
+    items: ['WhatsApp', 'Telegram', 'Voz', 'Web / API'],
+    color: 'teal',
+    fullWidth: false,
+  },
+  {
+    label: 'RUNTIME',
+    items: ['cauce-core · motor de agentes + orquestación'],
+    color: 'teal',
+    fullWidth: true,
+  },
+  {
+    label: 'PLATAFORMA',
+    items: ['Memoria', 'Evals', 'Observabilidad', 'Multi-tenant'],
+    color: 'moss',
+    fullWidth: false,
+  },
+  {
+    label: 'LLM',
+    items: ['Claude', 'OpenAI', 'Gemini', '+ más'],
+    color: 'slate',
+    fullWidth: false,
+    lastItemDim: true,
+  },
+  {
+    label: 'API',
+    items: ['cauce-api · REST + webhooks + admin panel'],
+    color: 'stone',
+    fullWidth: true,
+  },
+];
+
+const colorClasses: Record<LayerColor, string> = {
+  teal: 'bg-teal-500/8 border-teal-500/20 text-teal-400',
+  moss: 'bg-moss-500/8 border-moss-500/20 text-moss-400',
+  slate: 'bg-slate-500/8 border-slate-500/20 text-slate-400',
+  stone: 'bg-stone-600/15 border-[var(--border)] text-stone-400',
+};
+
+const barBase =
+  'flex-1 min-w-[110px] flex items-center justify-center text-center font-mono text-[11px] tracking-wide border rounded-lg px-4 py-3 md:py-0 md:h-12 whitespace-normal md:whitespace-nowrap transition-opacity duration-200 hover:opacity-80';
+
+const stack = ['Spring Boot 3.x', 'Kotlin', 'Gradle', 'PostgreSQL', 'Redis', 'Docker'];
+---
+
+<Section id="arquitectura">
+  <!-- Eyebrow -->
+  <div class="mb-5">
+    <Eyebrow color="teal">STACK TÉCNICO</Eyebrow>
+  </div>
+
+  <!-- H2 -->
+  <h2 class="font-display text-[clamp(36px,4.5vw,60px)] tracking-[-2px] leading-none mb-16">
+    Decisiones tomadas.<br />
+    <em class="italic text-teal-500">Sin compromiso.</em>
+  </h2>
+
+  <!-- Terminal window -->
+  <div
+    class="bg-[var(--color-stone-900)] border border-[var(--border)] rounded-2xl overflow-hidden"
+  >
+    <!-- Top bar (macOS dots) -->
+    <div
+      class="px-6 py-3.5 bg-[var(--color-stone-800)] border-b border-[var(--border)] flex items-center gap-2"
+    >
+      <span class="w-2.5 h-2.5 rounded-full bg-[#E05A4E]"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-[#D4A847]"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-moss-500"></span>
+      <span class="font-mono text-[11px] text-stone-600 tracking-wide ml-4">
+        cauce-os · architecture
+      </span>
+    </div>
+
+    <!-- Body: layers -->
+    <div class="px-5 py-8 md:px-10 md:py-10 flex flex-col gap-2.5">
+      {
+        layers.map((layer) => (
+          <div class="flex flex-col gap-2 md:grid md:grid-cols-[110px_1fr] md:gap-4 md:items-center">
+            <span class="font-mono text-[10px] uppercase tracking-[2px] text-stone-600 text-left md:text-right">
+              {layer.label}
+            </span>
+            <div class="flex flex-wrap gap-2 md:flex-nowrap">
+              {layer.items.map((item, idx) => (
+                <div
+                  class:list={[
+                    barBase,
+                    colorClasses[layer.color],
+                    layer.fullWidth && 'w-full',
+                    layer.lastItemDim && idx === layer.items.length - 1 && 'opacity-40',
+                  ]}
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+
+      <!-- Stack chips footer -->
+      <div
+        class="flex items-center gap-2.5 flex-wrap pt-6 mt-2 border-t border-[var(--border)]"
+      >
+        <span class="font-mono text-[10px] uppercase tracking-[2px] text-stone-600 mr-1">
+          STACK
+        </span>
+        {
+          stack.map((s) => (
+            <span class="font-mono text-[11px] px-3.5 py-1.5 rounded-lg bg-[var(--color-stone-800)] border border-[var(--border)] text-stone-300">
+              {s}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</Section>
