@@ -72,6 +72,8 @@
     font-family: var(--font-body);
     font-size: 16px;
     line-height: 1.65;
+    /* Offset for the fixed 64px nav so content never hides beneath it. */
+    padding-top: 64px;
   }
 }
 
