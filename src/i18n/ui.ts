@@ -157,7 +157,7 @@ export const ui = {
     // Footer
     'footer.by': 'by Payoyo Dev',
     'footer.email': 'hola@cauce.dev',
-    'footer.year': 'cauce.dev · 2025',
+    'footer.year': 'cauce.dev · 2026',
   },
   es: {
     // Meta
@@ -308,6 +308,6 @@ export const ui = {
     // Footer
     'footer.by': 'by Payoyo Dev',
     'footer.email': 'hola@cauce.dev',
-    'footer.year': 'cauce.dev · 2025',
+    'footer.year': 'cauce.dev · 2026',
   },
 } as const;
