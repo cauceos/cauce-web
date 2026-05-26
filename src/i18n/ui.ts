@@ -128,20 +128,20 @@ export const ui = {
 
     'bip.cta': 'Follow the progress →',
 
-    'bip.devlog4.meta': '2 DAYS AGO · DEVLOG #4',
-    'bip.devlog4.text': 'First channel working locally.',
-    'bip.devlog4.highlight': 'WhatsApp → cauce-core → response in 340ms.',
-    'bip.devlog4.after': 'Tomorrow, per-user memory.',
+    'bip.devlog4.meta': 'DEVLOG #4 · IN PROGRESS',
+    'bip.devlog4.text': 'Working on first channel integration.',
+    'bip.devlog4.highlight': 'Web Chat → cauce-core prototype.',
+    'bip.devlog4.after': 'WhatsApp and memory layer next.',
 
-    'bip.devlog3.meta': '1 WEEK AGO · DEVLOG #3',
+    'bip.devlog3.meta': 'DEVLOG #3 · DECISION',
     'bip.devlog3.text': 'Decision:',
-    'bip.devlog3.highlight': '4 modules instead of 10.',
+    'bip.devlog3.highlight': '10 modules in settings.gradle.kts.',
     'bip.devlog3.after':
       'Easier to split when it hurts than to unify when everything is already separate.',
 
-    'bip.devlog1.meta': '2 WEEKS AGO · DEVLOG #1',
+    'bip.devlog1.meta': 'DEVLOG #1 · KICKOFF',
     'bip.devlog1.text':
-      'This starts. I have seen too many AI projects that never reach production. Cauce is going to be different.',
+      'This starts. Too many AI projects never reach production. Cauce is going to be different.',
 
     // Waitlist
     'waitlist.title.line1': 'Be the first to',
@@ -279,20 +279,20 @@ export const ui = {
 
     'bip.cta': 'Seguir el progreso →',
 
-    'bip.devlog4.meta': 'HACE 2 DÍAS · DEVLOG #4',
-    'bip.devlog4.text': 'Primer canal funcionando en local.',
-    'bip.devlog4.highlight': 'WhatsApp → cauce-core → respuesta en 340ms.',
-    'bip.devlog4.after': 'Mañana, memoria por usuario.',
+    'bip.devlog4.meta': 'DEVLOG #4 · EN PROGRESO',
+    'bip.devlog4.text': 'Trabajando en la primera integración de canal.',
+    'bip.devlog4.highlight': 'Web Chat → prototipo cauce-core.',
+    'bip.devlog4.after': 'WhatsApp y capa de memoria a continuación.',
 
-    'bip.devlog3.meta': 'HACE 1 SEMANA · DEVLOG #3',
+    'bip.devlog3.meta': 'DEVLOG #3 · DECISIÓN',
     'bip.devlog3.text': 'Decisión:',
-    'bip.devlog3.highlight': '4 módulos en lugar de 10.',
+    'bip.devlog3.highlight': '10 módulos en settings.gradle.kts.',
     'bip.devlog3.after':
       'Es más fácil dividir cuando duele que unificar cuando ya está separado.',
 
-    'bip.devlog1.meta': 'HACE 2 SEMANAS · DEVLOG #1',
+    'bip.devlog1.meta': 'DEVLOG #1 · INICIO',
     'bip.devlog1.text':
-      'Esto empieza. He visto demasiados proyectos de IA que no llegan a producción. Cauce va a ser diferente.',
+      'Esto empieza. Demasiados proyectos de IA no llegan a producción. Cauce va a ser diferente.',
 
     // Waitlist
     'waitlist.title.line1': 'Sé el primero en',
