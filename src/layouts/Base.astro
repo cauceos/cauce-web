@@ -41,6 +41,65 @@ const ogLocale = lang === 'es' ? 'es_ES' : 'en_US';
     <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={ogImage} />
 
+    <!-- JSON-LD structured data -->
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'Organization',
+            '@id': 'https://cauce.dev/#organization',
+            name: 'Cauce',
+            url: 'https://cauce.dev',
+            logo: {
+              '@type': 'ImageObject',
+              url: 'https://cauce.dev/logos/cauce-symbol-dark.svg',
+              width: 512,
+              height: 512,
+            },
+            description:
+              lang === 'es'
+                ? 'Plataforma open source europea para construir, desplegar y escalar agentes de IA robustos.'
+                : 'European open source platform to build, deploy and scale robust AI agents.',
+            sameAs: ['https://github.com/cauceos', 'https://x.com/cauce_ai'],
+          },
+          {
+            '@type': 'WebSite',
+            '@id': 'https://cauce.dev/#website',
+            url: lang === 'es' ? 'https://cauce.dev/es/' : 'https://cauce.dev/',
+            name: 'Cauce',
+            description:
+              lang === 'es'
+                ? 'Infraestructura abierta para agentes de IA'
+                : 'Open infrastructure for AI agents',
+            publisher: { '@id': 'https://cauce.dev/#organization' },
+            inLanguage: lang === 'es' ? 'es-ES' : 'en-US',
+          },
+          {
+            '@type': 'SoftwareApplication',
+            '@id': 'https://cauce.dev/#software',
+            name: 'Cauce',
+            applicationCategory: 'DeveloperApplication',
+            operatingSystem: 'Cross-platform',
+            description:
+              lang === 'es'
+                ? 'Infraestructura open source para construir agentes de IA productivos en Spring Boot.'
+                : 'Open source infrastructure to build production AI agents on Spring Boot.',
+            offers: {
+              '@type': 'Offer',
+              price: '0',
+              priceCurrency: 'EUR',
+            },
+            softwareVersion: '0.1.0-alpha',
+            license: 'https://opensource.org/licenses/MIT',
+            url: 'https://github.com/cauceos',
+          },
+        ],
+      })}
+    />
+
     <link rel="canonical" href={Astro.url} />
 
     <!-- Favicons -->
