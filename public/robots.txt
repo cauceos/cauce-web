@@ -1,0 +1,27 @@
+# Cauce — robots.txt
+# https://cauce.dev
+
+User-agent: *
+Allow: /
+
+# AI training bots — explicit allow (open source friendly)
+User-agent: GPTBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Sitemap
+Sitemap: https://cauce.dev/sitemap-index.xml
