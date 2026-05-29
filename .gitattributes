@@ -1,0 +1,8 @@
+# Treat binary assets as binary so autocrlf never rewrites their bytes.
+*.ttf binary
+*.woff binary
+*.woff2 binary
+*.png binary
+*.ico binary
+*.jpg binary
+*.webp binary
