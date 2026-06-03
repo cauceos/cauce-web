@@ -1,6 +1,6 @@
 ---
-// Waitlist.astro — dark with a premium teal-accented card. Optimistic UI
-// only; a custom backend (Supabase/Turso) is pending — emails aren't persisted.
+// Waitlist.astro — dark with a premium teal-accented card. Submits to the
+// serverless /api/waitlist endpoint (Turso persistence + Resend emails).
 import Section from '../ui/Section.astro';
 import Logo from '../Logo.astro';
 import { useTranslations } from '../../i18n/utils';
@@ -73,6 +73,14 @@ const t = useTranslations(lang);
         <span>✓</span> {t('waitlist.success')}
       </div>
 
+      <!-- Error message (hidden by default) -->
+      <div
+        id="waitlist-error"
+        class="hidden items-center justify-center gap-2.5 font-mono text-[13px] text-[#E05A4E] mb-4"
+      >
+        <span>✕</span> {t('waitlist.error')}
+      </div>
+
       <!-- Note -->
       <p class="font-mono text-[10px] text-stone-600 tracking-wide">
         {t('waitlist.note')}
@@ -84,12 +92,25 @@ const t = useTranslations(lang);
 <script>
   const form = document.getElementById('waitlist-form') as HTMLFormElement | null;
   const success = document.getElementById('waitlist-success');
+  const errorBox = document.getElementById('waitlist-error');
   const input = form?.querySelector('input[name="email"]') as HTMLInputElement | null;
+  const button = form?.querySelector('button[type="submit"]') as HTMLButtonElement | null;
 
-  if (form && success && input) {
-    form.addEventListener('submit', (e) => {
+  // Detect locale from the current URL: /es/... → 'es', otherwise 'en'.
+  const locale = window.location.pathname.startsWith('/es/') ? 'es' : 'en';
+
+  if (form && success && errorBox && input && button) {
+    const showError = () => {
+      input.style.borderColor = 'rgba(224,90,78,0.5)';
+      errorBox.classList.remove('hidden');
+      errorBox.classList.add('flex');
+    };
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       input.style.borderColor = '';
+      errorBox.classList.add('hidden');
+      errorBox.classList.remove('flex');
 
       const email = input.value.trim();
 
@@ -98,11 +119,29 @@ const t = useTranslations(lang);
         return;
       }
 
-      // TODO: conectar a backend propio (Supabase/Turso) en hito futuro.
-      // Por ahora UI optimista — el email no se persiste.
-      form.style.display = 'none';
-      success.classList.remove('hidden');
-      success.classList.add('flex');
+      button.disabled = true;
+
+      try {
+        const response = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, locale }),
+        });
+
+        const data = await response.json().catch(() => null);
+
+        if (response.ok && data?.ok) {
+          form.style.display = 'none';
+          success.classList.remove('hidden');
+          success.classList.add('flex');
+        } else {
+          button.disabled = false;
+          showError();
+        }
+      } catch {
+        button.disabled = false;
+        showError();
+      }
     });
   }
 </script>

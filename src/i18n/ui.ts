@@ -152,6 +152,7 @@ export const ui = {
     'waitlist.email.placeholder': 'you@email.com',
     'waitlist.submit': 'Sign me up →',
     'waitlist.success': 'Signed up. We will let you know when we open.',
+    'waitlist.error': 'Something went wrong. Please try again.',
     'waitlist.note': 'No spam. Only when there is something worth it.',
 
     // Footer
@@ -303,6 +304,7 @@ export const ui = {
     'waitlist.email.placeholder': 'tu@email.com',
     'waitlist.submit': 'Apúntame →',
     'waitlist.success': 'Apuntado. Te avisamos cuando abramos.',
+    'waitlist.error': 'Algo ha fallado. Inténtalo de nuevo.',
     'waitlist.note': 'Sin spam. Solo cuando haya algo que merezca la pena.',
 
     // Footer
