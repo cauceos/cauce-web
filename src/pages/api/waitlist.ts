@@ -135,41 +135,277 @@ cauce.dev`,
 }
 
 const CONFIRMATION_HTML_EN = `<!DOCTYPE html>
-<html><body style="margin:0;padding:0;background:#ffffff;font-family:Georgia,serif;color:#0E0F0D;">
-<div style="max-width:600px;margin:0 auto;padding:60px 40px;">
-  <div style="font-size:32px;font-weight:600;margin-bottom:32px;">Cauce</div>
-  <p style="font-size:18px;line-height:1.7;margin:0 0 24px;">Hi,</p>
-  <p style="font-size:18px;line-height:1.7;margin:0 0 24px;">
-    Thanks for joining the Cauce waitlist. You're now on the list to
-    hear about our open infrastructure for AI agents — the European one,
-    the honest one, the one built right.
-  </p>
-  <p style="font-size:18px;line-height:1.7;margin:0 0 24px;">
-    We'll write again when there's something real worth showing.
-  </p>
-  <p style="font-size:18px;line-height:1.7;margin:0 0 40px;">— Cauce</p>
-  <div style="border-top:1px solid #ECEEE8;padding-top:24px;font-size:14px;color:#8C8D82;">
-    <a href="https://cauce.dev" style="color:#2DD4C0;text-decoration:none;">cauce.dev</a>
-  </div>
-</div>
-</body></html>`;
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You're on the Cauce waitlist</title>
+</head>
+<body style="margin:0;padding:0;background:#0E0F0D;">
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%"
+       style="background:#0E0F0D;font-family:Georgia,'Times New Roman',serif;">
+  <tr>
+    <td align="center" style="padding:0;">
+      <table cellpadding="0" cellspacing="0" border="0" width="600"
+             style="max-width:600px;width:100%;">
+
+        <!-- HEADER: symbol + wordmark -->
+        <tr>
+          <td align="center" style="padding:60px 40px 30px;">
+            <svg width="120" height="90" viewBox="0 0 80 60"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M 4 22 Q 40 72 76 22" stroke="#4A4B42"
+                    stroke-width="1.8" stroke-linecap="round" fill="none"/>
+              <path d="M 12 22 Q 40 62 68 22" stroke="#5A8CAB"
+                    stroke-width="2.4" stroke-linecap="round" fill="none"/>
+              <path d="M 20 22 Q 40 52 60 22" stroke="#6FAF82"
+                    stroke-width="3.0" stroke-linecap="round" fill="none"/>
+              <path d="M 28 22 Q 40 42 52 22" stroke="#2DD4C0"
+                    stroke-width="4.0" stroke-linecap="round" fill="none"/>
+              <circle cx="40" cy="40" r="3" fill="#2DD4C0"/>
+            </svg>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="padding:0 40px 20px;">
+            <span style="font-family:Georgia,serif;font-size:36px;
+                         font-weight:400;color:#ECEEE8;letter-spacing:-1px;">
+              Cau<em style="color:#2DD4C0;font-style:italic;">ce</em>
+            </span>
+          </td>
+        </tr>
+
+        <!-- Decorative line -->
+        <tr>
+          <td align="center" style="padding:10px 40px;">
+            <div style="width:60px;height:1px;background:#2DD4C0;
+                        opacity:0.4;margin:0 auto;"></div>
+          </td>
+        </tr>
+
+        <!-- Eyebrow -->
+        <tr>
+          <td align="center" style="padding:20px 40px 40px;">
+            <span style="font-family:'Courier New',monospace;font-size:11px;
+                         color:#2DD4C0;letter-spacing:4px;
+                         text-transform:uppercase;">
+              CONFIRMATION · WAITLIST
+            </span>
+          </td>
+        </tr>
+
+        <!-- Title -->
+        <tr>
+          <td style="padding:0 60px 32px;">
+            <h1 style="font-family:Georgia,serif;font-size:42px;
+                       font-weight:400;color:#ECEEE8;line-height:1.15;
+                       letter-spacing:-1.5px;margin:0;">
+              You're on the Cauce <em style="color:#2DD4C0;font-style:italic;">waitlist</em>.
+            </h1>
+          </td>
+        </tr>
+
+        <!-- Body paragraphs -->
+        <tr>
+          <td style="padding:0 60px 24px;">
+            <p style="font-family:Georgia,serif;font-size:18px;
+                      line-height:1.7;color:#C8CAC2;margin:0;">
+              Hi,
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:0 60px 24px;">
+            <p style="font-family:Georgia,serif;font-size:18px;
+                      line-height:1.7;color:#C8CAC2;margin:0;">
+              Thanks for joining. You're now on the list to hear about our open infrastructure for AI agents — the European one, the honest one, the one built right.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:0 60px 48px;">
+            <p style="font-family:Georgia,serif;font-size:18px;
+                      line-height:1.7;color:#C8CAC2;margin:0;">
+              We'll write again when there's something real worth showing.
+            </p>
+          </td>
+        </tr>
+
+        <!-- Signature -->
+        <tr>
+          <td style="padding:0 60px 60px;">
+            <p style="font-family:Georgia,serif;font-size:18px;
+                      color:#ECEEE8;margin:0;">
+              — <em style="color:#2DD4C0;font-style:italic;">Cauce</em>
+            </p>
+          </td>
+        </tr>
+
+        <!-- Technical footer -->
+        <tr>
+          <td style="padding:30px 60px;border-top:1px solid #252620;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td style="font-family:'Courier New',monospace;font-size:11px;
+                           color:#5F605A;letter-spacing:1px;">
+                  OPEN SOURCE · BUILT IN PUBLIC · 2026
+                </td>
+                <td align="right">
+                  <a href="https://cauce.dev"
+                     style="font-family:'Courier New',monospace;font-size:11px;
+                            color:#2DD4C0;text-decoration:none;
+                            letter-spacing:2px;">
+                    CAUCE.DEV →
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>`;
 
 const CONFIRMATION_HTML_ES = `<!DOCTYPE html>
-<html><body style="margin:0;padding:0;background:#ffffff;font-family:Georgia,serif;color:#0E0F0D;">
-<div style="max-width:600px;margin:0 auto;padding:60px 40px;">
-  <div style="font-size:32px;font-weight:600;margin-bottom:32px;">Cauce</div>
-  <p style="font-size:18px;line-height:1.7;margin:0 0 24px;">Hola,</p>
-  <p style="font-size:18px;line-height:1.7;margin:0 0 24px;">
-    Gracias por unirte a la waitlist de Cauce. Estás en la lista
-    para recibir noticias sobre nuestra infraestructura abierta para
-    agentes de IA — la europea, la honesta, la hecha bien.
-  </p>
-  <p style="font-size:18px;line-height:1.7;margin:0 0 24px;">
-    Te escribiremos de nuevo cuando haya algo real que merezca enseñarse.
-  </p>
-  <p style="font-size:18px;line-height:1.7;margin:0 0 40px;">— Cauce</p>
-  <div style="border-top:1px solid #ECEEE8;padding-top:24px;font-size:14px;color:#8C8D82;">
-    <a href="https://cauce.dev" style="color:#2DD4C0;text-decoration:none;">cauce.dev</a>
-  </div>
-</div>
-</body></html>`;
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Te has unido a la waitlist de Cauce</title>
+</head>
+<body style="margin:0;padding:0;background:#0E0F0D;">
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%"
+       style="background:#0E0F0D;font-family:Georgia,'Times New Roman',serif;">
+  <tr>
+    <td align="center" style="padding:0;">
+      <table cellpadding="0" cellspacing="0" border="0" width="600"
+             style="max-width:600px;width:100%;">
+
+        <!-- HEADER: symbol + wordmark -->
+        <tr>
+          <td align="center" style="padding:60px 40px 30px;">
+            <svg width="120" height="90" viewBox="0 0 80 60"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M 4 22 Q 40 72 76 22" stroke="#4A4B42"
+                    stroke-width="1.8" stroke-linecap="round" fill="none"/>
+              <path d="M 12 22 Q 40 62 68 22" stroke="#5A8CAB"
+                    stroke-width="2.4" stroke-linecap="round" fill="none"/>
+              <path d="M 20 22 Q 40 52 60 22" stroke="#6FAF82"
+                    stroke-width="3.0" stroke-linecap="round" fill="none"/>
+              <path d="M 28 22 Q 40 42 52 22" stroke="#2DD4C0"
+                    stroke-width="4.0" stroke-linecap="round" fill="none"/>
+              <circle cx="40" cy="40" r="3" fill="#2DD4C0"/>
+            </svg>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="padding:0 40px 20px;">
+            <span style="font-family:Georgia,serif;font-size:36px;
+                         font-weight:400;color:#ECEEE8;letter-spacing:-1px;">
+              Cau<em style="color:#2DD4C0;font-style:italic;">ce</em>
+            </span>
+          </td>
+        </tr>
+
+        <!-- Decorative line -->
+        <tr>
+          <td align="center" style="padding:10px 40px;">
+            <div style="width:60px;height:1px;background:#2DD4C0;
+                        opacity:0.4;margin:0 auto;"></div>
+          </td>
+        </tr>
+
+        <!-- Eyebrow -->
+        <tr>
+          <td align="center" style="padding:20px 40px 40px;">
+            <span style="font-family:'Courier New',monospace;font-size:11px;
+                         color:#2DD4C0;letter-spacing:4px;
+                         text-transform:uppercase;">
+              CONFIRMACIÓN · WAITLIST
+            </span>
+          </td>
+        </tr>
+
+        <!-- Title -->
+        <tr>
+          <td style="padding:0 60px 32px;">
+            <h1 style="font-family:Georgia,serif;font-size:42px;
+                       font-weight:400;color:#ECEEE8;line-height:1.15;
+                       letter-spacing:-1.5px;margin:0;">
+              Te has unido a la <em style="color:#2DD4C0;font-style:italic;">waitlist</em> de Cauce.
+            </h1>
+          </td>
+        </tr>
+
+        <!-- Body paragraphs -->
+        <tr>
+          <td style="padding:0 60px 24px;">
+            <p style="font-family:Georgia,serif;font-size:18px;
+                      line-height:1.7;color:#C8CAC2;margin:0;">
+              Hola,
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:0 60px 24px;">
+            <p style="font-family:Georgia,serif;font-size:18px;
+                      line-height:1.7;color:#C8CAC2;margin:0;">
+              Gracias por unirte. Estás en la lista para recibir noticias sobre nuestra infraestructura abierta para agentes de IA — la europea, la honesta, la bien hecha.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:0 60px 48px;">
+            <p style="font-family:Georgia,serif;font-size:18px;
+                      line-height:1.7;color:#C8CAC2;margin:0;">
+              Te escribiremos de nuevo cuando haya algo real que merezca enseñarse.
+            </p>
+          </td>
+        </tr>
+
+        <!-- Signature -->
+        <tr>
+          <td style="padding:0 60px 60px;">
+            <p style="font-family:Georgia,serif;font-size:18px;
+                      color:#ECEEE8;margin:0;">
+              — <em style="color:#2DD4C0;font-style:italic;">Cauce</em>
+            </p>
+          </td>
+        </tr>
+
+        <!-- Technical footer -->
+        <tr>
+          <td style="padding:30px 60px;border-top:1px solid #252620;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td style="font-family:'Courier New',monospace;font-size:11px;
+                           color:#5F605A;letter-spacing:1px;">
+                  OPEN SOURCE · BUILT IN PUBLIC · 2026
+                </td>
+                <td align="right">
+                  <a href="https://cauce.dev"
+                     style="font-family:'Courier New',monospace;font-size:11px;
+                            color:#2DD4C0;text-decoration:none;
+                            letter-spacing:2px;">
+                    CAUCE.DEV →
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>`;
