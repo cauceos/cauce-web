@@ -20,6 +20,9 @@ interface Props {
 const { entry, lang, isNow = false, isLast = false } = Astro.props;
 const { numero, tipo, titulo, limite, modulos } = entry.data;
 const { Content } = await render(entry);
+// Units inside a chapter sit under its h2. The `next` unit precedes every
+// chapter, so it takes h2 itself to keep the heading order sequential.
+const Heading = tipo === 'next' ? 'h2' : 'h3';
 ---
 
 <div
@@ -35,7 +38,7 @@ const { Content } = await render(entry);
     <div class="top">
       <LogEntryMeta entry={entry} lang={lang} />
     </div>
-    <h3>{titulo}</h3>
+    <Heading class="title">{titulo}</Heading>
     <div class="body"><Content /></div>
     {limite && <p class="limit">{limite}</p>}
     <LogModules modulos={modulos} />
@@ -109,7 +112,7 @@ const { Content } = await render(entry);
     flex-wrap: wrap;
     margin-bottom: 12px;
   }
-  h3 {
+  .title {
     font-family: var(--font-display);
     font-weight: 400;
     font-size: 24px;
@@ -117,7 +120,7 @@ const { Content } = await render(entry);
     line-height: 1.2;
     margin-bottom: 12px;
   }
-  .row.is-next h3 {
+  .row.is-next .title {
     color: var(--muted);
   }
   .body :global(p) {
@@ -154,7 +157,7 @@ const { Content } = await render(entry);
     .num {
       display: none;
     }
-    h3 {
+    .title {
       font-size: 21px;
     }
   }
