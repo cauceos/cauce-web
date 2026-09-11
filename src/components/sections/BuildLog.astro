@@ -1,0 +1,360 @@
+---
+// BuildLog.astro — the board on the home: the three most recent landed units
+// from the log collection, the latest in full and the two before it receding.
+// No content of its own: publishing a new unit is adding a .md file.
+import { render } from 'astro:content';
+import Section from '../ui/Section.astro';
+import LogEntryMeta from '../log/LogEntryMeta.astro';
+import LogModules from '../log/LogModules.astro';
+import { getLogEntries, landed, lastDate } from '../../lib/log';
+import { useLogTranslations } from '../../i18n/log';
+import { getLocalizedPath } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useLogTranslations(lang);
+
+const all = landed(await getLogEntries(lang));
+const total = all.length;
+const last = lastDate(all);
+const top = all.slice(0, 3);
+const rendered = await Promise.all(
+  top.map(async (entry) => ({ entry, Content: (await render(entry)).Content })),
+);
+const logHref = getLocalizedPath('/log', lang);
+const recession = ['now', 'r1', 'r2'] as const;
+---
+
+<Section id="log">
+  <div class="head">
+    <h2>{t('board.title.pre')} <i>{t('board.title.emphasis')}</i></h2>
+    <div class="head-meta">
+      {t('board.meta.chain')} · <b>{total}</b> {t('log.units')} · {t('board.meta.last')} <b>{last}</b>
+    </div>
+  </div>
+
+  <div class="chain reveal-trigger">
+    {
+      rendered.map(({ entry, Content }, i) => (
+        <>
+          {i > 0 && <div class:list={['link', { faint: i > 1 }]} aria-hidden="true" />}
+          <article class:list={['entry', recession[i]]}>
+            <div class="e-top">
+              <span class="dot" aria-hidden="true" />
+              <LogEntryMeta entry={entry} lang={lang} showUnit longBreaking />
+            </div>
+            <h3 class="e-title">{entry.data.titulo}</h3>
+            <div class="e-body">
+              <Content />
+            </div>
+            {entry.data.limite && <p class="limit">{entry.data.limite}</p>}
+            <LogModules modulos={entry.data.modulos} />
+          </article>
+        </>
+      ))
+    }
+
+    <div class="link tail faint" aria-hidden="true"></div>
+
+    <div class="foot">
+      <a class="all" href={logHref}>{t('board.cta', { n: total })}</a>
+      <p>{t('board.note')}</p>
+    </div>
+  </div>
+
+  <noscript>
+    <style>
+      /* Without JS the observer never fires: show the board as-is. */
+      .chain > * {
+        opacity: 1 !important;
+        animation: none !important;
+      }
+    </style>
+  </noscript>
+</Section>
+
+<style>
+  .head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+  .head h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(30px, 3.6vw, 42px);
+    letter-spacing: -1.5px;
+    line-height: 1.05;
+  }
+  .head h2 i {
+    font-style: italic;
+    color: var(--color-teal-500);
+  }
+  .head-meta {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .head-meta b {
+    color: var(--text-3);
+    font-weight: 500;
+  }
+
+  .chain {
+    position: relative;
+  }
+  .link {
+    width: 1px;
+    margin-left: 7px;
+    height: 36px;
+    transform-origin: top;
+    background: linear-gradient(180deg, var(--color-teal-500), var(--color-stone-700));
+  }
+  .link.faint {
+    background: var(--color-stone-700);
+    opacity: 0.6;
+  }
+  .link.tail {
+    height: 56px;
+    background: repeating-linear-gradient(
+      180deg,
+      var(--color-stone-700) 0 3px,
+      transparent 3px 8px
+    );
+  }
+
+  .entry {
+    position: relative;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--surface);
+    padding: 32px 34px 30px;
+  }
+  .entry.r1 {
+    margin-left: 26px;
+    padding: 22px 26px;
+    background: var(--surface-recede-1);
+    border-radius: 12px;
+  }
+  .entry.r2 {
+    margin-left: 52px;
+    padding: 20px 24px;
+    background: var(--surface-recede-2);
+    border-radius: 10px;
+    border-color: var(--border-recede);
+  }
+  .entry.now {
+    border-color: var(--border-lit);
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--color-teal-500) 8%, transparent),
+      0 24px 60px -30px color-mix(in srgb, var(--color-teal-500) 35%, transparent);
+  }
+
+  .e-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--color-teal-500);
+    flex: none;
+  }
+  .entry.now .dot {
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-teal-500) 14%, transparent);
+  }
+  .entry.r1 .dot {
+    background: var(--color-moss-400);
+  }
+  .entry.r2 .dot {
+    background: var(--color-slate-500);
+  }
+
+  .e-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(22px, 2.4vw, 29px);
+    letter-spacing: -0.9px;
+    line-height: 1.18;
+    margin-bottom: 14px;
+  }
+  .entry.r1 .e-title {
+    font-size: 19px;
+  }
+  .entry.r2 .e-title {
+    font-size: 17px;
+    color: var(--text-3);
+  }
+
+  .e-body :global(p) {
+    color: var(--text-3);
+    max-width: 66ch;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .entry.r1 .e-body :global(p),
+  .entry.r2 .e-body :global(p) {
+    font-size: 14px;
+    max-width: 72ch;
+  }
+  .entry.r1 .e-body :global(p) {
+    color: var(--muted);
+  }
+  .entry.r2 .e-body :global(p) {
+    color: var(--subtle);
+  }
+  .e-body :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background: var(--color-stone-800);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: var(--color-stone-200);
+  }
+  .entry.r1 .e-body :global(code),
+  .entry.r2 .e-body :global(code) {
+    background: var(--code-bg-recede);
+    color: var(--muted);
+  }
+
+  .limit {
+    margin-top: 18px;
+    padding-left: 16px;
+    border-left: 1px solid var(--color-stone-700);
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--subtle);
+    max-width: 64ch;
+  }
+  .entry.r1 .limit,
+  .entry.r2 .limit {
+    margin-top: 12px;
+    font-size: 13px;
+  }
+  .entry :global(.mods) {
+    margin-top: 22px;
+  }
+  .entry.r1 :global(.mods),
+  .entry.r2 :global(.mods) {
+    margin-top: 14px;
+  }
+  .entry.r2 :global(.mod) {
+    color: var(--subtle);
+  }
+
+  .foot {
+    margin-left: 52px;
+    padding-top: 8px;
+  }
+  .all {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    text-decoration: none;
+    border: 1px solid var(--color-stone-700);
+    border-radius: 100px;
+    padding: 12px 24px;
+    transition:
+      border-color 0.18s ease,
+      color 0.18s ease,
+      background 0.18s ease;
+  }
+  .all:hover {
+    border-color: var(--color-teal-500);
+    color: var(--color-teal-500);
+    background: color-mix(in srgb, var(--color-teal-500) 5%, transparent);
+  }
+  .all:focus-visible {
+    outline: 2px solid var(--color-teal-500);
+    outline-offset: 3px;
+  }
+  .foot p {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--subtle);
+    margin-top: 14px;
+  }
+
+  /* One orchestrated entrance, fired once when the board enters the
+   * viewport (Base.astro adds .is-visible). Opacity and transform only:
+   * nothing here moves the layout. */
+  @media (prefers-reduced-motion: no-preference) {
+    .chain > * {
+      opacity: 0;
+    }
+    .chain.is-visible > * {
+      animation: settle 0.6s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+    }
+    .chain.is-visible > .link {
+      animation: draw 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
+      opacity: 1;
+    }
+    .chain.is-visible > .link.faint {
+      opacity: 0.6;
+    }
+    .chain.is-visible > :nth-child(1) { animation-delay: 0.05s; }
+    .chain.is-visible > :nth-child(2) { animation-delay: 0.45s; }
+    .chain.is-visible > :nth-child(3) { animation-delay: 0.6s; }
+    .chain.is-visible > :nth-child(4) { animation-delay: 0.8s; }
+    .chain.is-visible > :nth-child(5) { animation-delay: 0.95s; }
+    .chain.is-visible > :nth-child(6) { animation-delay: 1.15s; }
+    .chain.is-visible > :nth-child(7) { animation-delay: 1.3s; }
+    @keyframes settle {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes draw {
+      from { transform: scaleY(0); }
+      to { transform: scaleY(1); }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .chain > * {
+      opacity: 1;
+      animation: none;
+    }
+    .chain > .link.faint {
+      opacity: 0.6;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .entry {
+      padding: 24px 20px;
+    }
+    .entry.r1 {
+      margin-left: 12px;
+      padding: 20px 18px;
+    }
+    .entry.r2 {
+      margin-left: 24px;
+      padding: 18px 16px;
+    }
+    .foot {
+      margin-left: 24px;
+    }
+    .all {
+      display: block;
+      text-align: center;
+    }
+    .head-meta {
+      white-space: normal;
+    }
+  }
+</style>

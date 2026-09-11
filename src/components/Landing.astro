@@ -9,6 +9,7 @@ import Problema from './sections/Problema.astro';
 import QueEsCauce from './sections/QueEsCauce.astro';
 import Arquitectura from './sections/Arquitectura.astro';
 import BuildingInPublic from './sections/BuildingInPublic.astro';
+import BuildLog from './sections/BuildLog.astro';
 import Waitlist from './sections/Waitlist.astro';
 import Footer from './sections/Footer.astro';
 import type { Lang } from '../i18n/ui';
@@ -28,6 +29,7 @@ const { lang } = Astro.props;
     <QueEsCauce lang={lang} />
     <Arquitectura lang={lang} />
     <BuildingInPublic lang={lang} />
+    <BuildLog lang={lang} />
     <Waitlist lang={lang} />
   </main>
   <Footer lang={lang} />

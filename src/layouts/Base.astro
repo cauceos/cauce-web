@@ -151,7 +151,9 @@ const ogImageAlt =
     <script>
       // Scroll reveal: adds .is-visible to .reveal elements when they
       // enter the viewport. Runs once per element (unobserve after reveal).
-      const reveals = document.querySelectorAll('.reveal');
+      // .reveal-trigger has no styles of its own: a component (the build
+      // log board) uses the class to start its own entrance sequence.
+      const reveals = document.querySelectorAll('.reveal, .reveal-trigger');
 
       if (reveals.length > 0 && 'IntersectionObserver' in window) {
         const observer = new IntersectionObserver(
