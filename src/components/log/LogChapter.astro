@@ -1,0 +1,70 @@
+---
+// LogChapter.astro — chapter heading on the rail. The filter script hides it
+// when none of the rows that follow it (until the next chapter) are visible.
+import type { LogChapter } from '../../data/log-chapters';
+import { useLogTranslations } from '../../i18n/log';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+  chapter: LogChapter;
+  lang: Lang;
+  first?: boolean;
+}
+
+const { chapter, lang, first = false } = Astro.props;
+const t = useLogTranslations(lang);
+---
+
+<div class:list={['chapter', { first }]}>
+  <div class="rail" aria-hidden="true"></div>
+  <div>
+    <h2>{chapter.title[lang]}</h2>
+    <span>{t('log.units')} {chapter.from}–{chapter.to} · {chapter.period[lang]}</span>
+  </div>
+</div>
+
+<style>
+  .chapter {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    margin: 56px 0 4px;
+  }
+  .chapter.first {
+    margin-top: 40px;
+  }
+  .chapter[hidden] {
+    display: none;
+  }
+  .rail {
+    position: relative;
+  }
+  .rail::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 0;
+    bottom: -4px;
+    width: 1px;
+    background: var(--color-stone-700);
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 21px;
+    letter-spacing: -0.6px;
+    color: var(--muted);
+    padding: 6px 0 0;
+  }
+  span {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--subtle);
+    display: block;
+    margin-top: 4px;
+  }
+  @media (max-width: 720px) {
+    .chapter {
+      grid-template-columns: 40px 1fr;
+    }
+  }
+</style>

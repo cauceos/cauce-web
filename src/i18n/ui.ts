@@ -19,6 +19,7 @@ export const ui = {
     'nav.whatIs': 'What is',
     'nav.stack': 'Stack',
     'nav.project': 'Project',
+    'nav.log': 'Build log',
     'nav.cta': 'Join the waitlist',
 
     // Hero
@@ -171,6 +172,7 @@ export const ui = {
     'nav.whatIs': 'Qué es',
     'nav.stack': 'Stack',
     'nav.project': 'Proyecto',
+    'nav.log': 'Build log',
     'nav.cta': 'Únete a la waitlist',
 
     // Hero

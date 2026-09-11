@@ -1,0 +1,85 @@
+---
+// LogPage.astro — the full /log archive for a given locale. Each /pages entry
+// is a thin wrapper that renders this with its lang, like Landing.astro.
+import Base from '../layouts/Base.astro';
+import Nav from './Nav.astro';
+import Footer from './sections/Footer.astro';
+import LogMasthead from './log/LogMasthead.astro';
+import LogFilters from './log/LogFilters.astro';
+import LogChapter from './log/LogChapter.astro';
+import LogRow from './log/LogRow.astro';
+import { getLogEntries, landed, groupByChapter } from '../lib/log';
+import { logStats } from '../data/log-stats';
+import { useLogTranslations, formatDate } from '../i18n/log';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useLogTranslations(lang);
+
+const entries = await getLogEntries(lang);
+const units = landed(entries).length;
+const nowNumero = landed(entries)[0]?.data.numero;
+const lastNumero = entries.at(-1)?.data.numero;
+const { next, chapters } = groupByChapter(entries);
+const visibleChapters = chapters.filter((c) => c.entries.length > 0);
+---
+
+<Base lang={lang} title={t('log.meta.title')} description={t('log.meta.description')} path="/log">
+  <Nav lang={lang} path="/log" />
+  <main class="wrap">
+    <LogMasthead lang={lang} units={units} />
+    <LogFilters lang={lang} />
+
+    <div class="chain" id="chain">
+      {next.map((e) => <LogRow entry={e} lang={lang} isLast={e.data.numero === lastNumero} />)}
+
+      {
+        visibleChapters.map(({ chapter, entries: rows }, i) => (
+          <>
+            <LogChapter chapter={chapter} lang={lang} first={i === 0} />
+            {rows.map((e) => (
+              <LogRow
+                entry={e}
+                lang={lang}
+                isNow={e.data.numero === nowNumero}
+                isLast={e.data.numero === lastNumero}
+              />
+            ))}
+          </>
+        ))
+      }
+
+      <p class="end">{t('log.end', { date: formatDate(logStats.since, lang, 'long') })}</p>
+    </div>
+  </main>
+  <Footer lang={lang} />
+</Base>
+
+<style>
+  .wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  .chain {
+    padding-bottom: 120px;
+  }
+  .end {
+    padding: 8px 0 0 92px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--subtle);
+  }
+  @media (max-width: 720px) {
+    .wrap {
+      padding: 0 20px;
+    }
+    .end {
+      padding-left: 40px;
+    }
+  }
+</style>

@@ -1,0 +1,93 @@
+---
+// LogEntryMeta.astro — the type tag + right-aligned meta (unit number, commit
+// link, date) shared by the archive rows and the home board.
+// The commit link renders only when a sha exists; unit 24 has none.
+import type { LogEntry } from '../../lib/log';
+import { commitUrl } from '../../lib/log';
+import { useLogTranslations } from '../../i18n/log';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+  entry: LogEntry;
+  lang: Lang;
+  /** Board shows "unit 42" before the sha; the archive rail already shows the number. */
+  showUnit?: boolean;
+  /** Board uses the long "Breaking change" label; the archive the short one. */
+  longBreaking?: boolean;
+}
+
+const { entry, lang, showUnit = false, longBreaking = false } = Astro.props;
+const t = useLogTranslations(lang);
+const { tipo, sha, fecha, numero } = entry.data;
+
+const tagLabel =
+  tipo === 'breaking'
+    ? longBreaking
+      ? t('log.tag.breakingLong')
+      : t('log.tag.breaking')
+    : t(`log.tag.${tipo}`);
+---
+
+<span class:list={['tag', `t-${tipo}`]}>{tagLabel}</span>
+<span class="meta">
+  {showUnit && tipo !== 'next' && <span>{t('log.unit')} {numero}</span>}
+  {tipo === 'next' && <span>{t('log.notStarted')}</span>}
+  {sha && <a class="sha" href={commitUrl(sha)} rel="noopener">{sha}</a>}
+  {fecha && <span>{fecha}</span>}
+</span>
+
+<style>
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 4px;
+  }
+  .t-shipped {
+    background: color-mix(in srgb, var(--color-moss-500) 14%, transparent);
+    color: var(--color-moss-400);
+  }
+  .t-decision,
+  .t-breaking {
+    background: color-mix(in srgb, var(--color-slate-500) 14%, transparent);
+    color: var(--color-slate-400);
+  }
+  .t-next {
+    background: transparent;
+    color: var(--subtle);
+    border: 1px solid var(--color-stone-700);
+  }
+  .meta {
+    margin-left: auto;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--subtle);
+  }
+  .sha {
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .sha:hover {
+    color: var(--color-teal-500);
+    border-bottom-color: color-mix(in srgb, var(--color-teal-500) 40%, transparent);
+  }
+  .sha:focus-visible {
+    outline: 2px solid var(--color-teal-500);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  @media (max-width: 720px) {
+    .meta {
+      margin-left: 0;
+      width: 100%;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+  }
+</style>

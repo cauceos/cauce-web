@@ -21,6 +21,17 @@
   --text-2: #D4D5CC;      /* stone-200 — secondary text */
   --muted: #8C8D82;       /* stone-400 — captions, placeholders */
   --subtle: #4A4B42;      /* stone-600 — disabled, faint */
+  --text-3: #C8CAC2;      /* body copy on dark, one step under --text-2 */
+
+  /* === Build log surfaces === */
+  /* The board recedes older entries: each step is a darker surface and a
+   * fainter border than stone-900 / --border. The lit border marks the
+   * current unit. Not part of the Stone scale on purpose. */
+  --surface-recede-1: #131410;
+  --surface-recede-2: #111210;
+  --code-bg-recede:   #1B1C18;
+  --border-recede:    #282922;
+  --border-lit:       #3A4B45;
 
   /* === Typographic scale (CLAUDE.md §6) === */
   --fs-display:  clamp(52px, 7vw, 96px);

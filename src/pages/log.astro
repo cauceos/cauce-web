@@ -1,0 +1,8 @@
+---
+import LogPage from '../components/LogPage.astro';
+import { getLangFromUrl } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+---
+
+<LogPage lang={lang} />

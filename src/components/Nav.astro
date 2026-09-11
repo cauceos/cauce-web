@@ -3,21 +3,26 @@
 import Logo from './Logo.astro';
 import Button from './ui/Button.astro';
 import LangSwitcher from './ui/LangSwitcher.astro';
-import { useTranslations } from '../i18n/utils';
+import { useTranslations, getLocalizedPath } from '../i18n/utils';
 import type { Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
+  /** Route without locale prefix ('/', '/log'). Used by the language switch. */
+  path?: string;
 }
 
-const { lang } = Astro.props;
+const { lang, path = '/' } = Astro.props;
 const t = useTranslations(lang);
 
+// Anchors are absolute so the nav also works from /log.
+const home = getLocalizedPath('/', lang);
 const links = [
-  { href: '#problema', label: t('nav.problem') },
-  { href: '#que-es', label: t('nav.whatIs') },
-  { href: '#arquitectura', label: t('nav.stack') },
-  { href: '#bip', label: t('nav.project') },
+  { href: `${home}#problema`, label: t('nav.problem') },
+  { href: `${home}#que-es`, label: t('nav.whatIs') },
+  { href: `${home}#arquitectura`, label: t('nav.stack') },
+  { href: `${home}#bip`, label: t('nav.project') },
+  { href: getLocalizedPath('/log', lang), label: t('nav.log') },
 ];
 
 const linkClass =
@@ -30,7 +35,7 @@ const linkClass =
   <div class="container-page h-full">
     <div class="flex items-center justify-between h-full">
       <!-- Left: logo + wordmark -->
-      <a href="#inicio" class="flex items-center gap-2.5 group">
+      <a href={`${home}#inicio`} class="flex items-center gap-2.5 group">
         <Logo size={26} />
         <span class="font-display text-xl tracking-tight">
           Cau<em class="italic text-teal-500">ce</em>
@@ -44,8 +49,8 @@ const linkClass =
 
       <!-- Right: language switcher + primary CTA -->
       <div class="flex items-center gap-4">
-        <LangSwitcher current={lang} />
-        <Button href="#waitlist" variant="primary" size="sm">{t('nav.cta')}</Button>
+        <LangSwitcher current={lang} path={path} />
+        <Button href={`${home}#waitlist`} variant="primary" size="sm">{t('nav.cta')}</Button>
       </div>
     </div>
   </div>

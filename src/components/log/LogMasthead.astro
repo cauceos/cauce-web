@@ -1,0 +1,147 @@
+---
+// LogMasthead.astro — back link, title, lede and the four-figure strip.
+// Figures come from src/data/log-stats.ts; the unit count from the collection.
+import { logStats } from '../../data/log-stats';
+import { useLogTranslations, formatDate } from '../../i18n/log';
+import { getLocalizedPath } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  units: number;
+}
+
+const { lang, units } = Astro.props;
+const t = useLogTranslations(lang);
+const home = getLocalizedPath('/', lang);
+const empty = logStats.modulesTotal - logStats.modulesActive;
+const sinceYear = logStats.since.slice(0, 4);
+---
+
+<header class="masthead">
+  <a class="back" href={home}>{t('log.back')}</a>
+  <h1>{t('log.title.pre')} <i>{t('log.title.emphasis')}</i></h1>
+  <p class="lede">{t('log.lede')}</p>
+
+  <dl class="state">
+    <div>
+      <dt>{t('log.stat.units')}</dt>
+      <dd>{units}<small>{t('log.stat.units.sub', { commits: logStats.commits })}</small></dd>
+    </div>
+    <div>
+      <dt>{t('log.stat.modules')}</dt>
+      <dd>
+        {logStats.modulesActive}<small
+          >{t('log.stat.modules.sub', { total: logStats.modulesTotal, empty })}</small
+        >
+      </dd>
+    </div>
+    <div>
+      <dt>{t('log.stat.tests')}</dt>
+      <dd>{logStats.tests}<small>{t('log.stat.tests.sub')}</small></dd>
+    </div>
+    <div>
+      <dt>{t('log.stat.since')}</dt>
+      <dd>
+        {formatDate(logStats.since, lang, 'short')}<small
+          >{t('log.stat.since.sub', { year: sinceYear })}</small
+        >
+      </dd>
+    </div>
+  </dl>
+</header>
+
+<style>
+  .masthead {
+    padding: 64px 0 0;
+  }
+  .back {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+  }
+  .back:hover {
+    color: var(--color-teal-500);
+  }
+  .back:focus-visible {
+    outline: 2px solid var(--color-teal-500);
+    outline-offset: 3px;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(42px, 6vw, 68px);
+    letter-spacing: -2.4px;
+    line-height: 1;
+    margin: 28px 0 20px;
+  }
+  h1 i {
+    font-style: italic;
+    color: var(--color-teal-500);
+  }
+  .lede {
+    color: var(--text-3);
+    max-width: 62ch;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  .state {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 56px 0 0;
+  }
+  .state div {
+    background: var(--surface);
+    padding: 22px 24px;
+    min-width: 0;
+  }
+  .state dt {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--subtle);
+    margin-bottom: 8px;
+  }
+  .state dd {
+    font-family: var(--font-display);
+    font-size: 34px;
+    font-weight: 400;
+    letter-spacing: -1.4px;
+    line-height: 1;
+  }
+  .state dd small {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0;
+    color: var(--muted);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 720px) {
+    .masthead {
+      padding: 40px 0 0;
+    }
+    .state {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 400px) {
+    .state div {
+      padding: 18px 16px;
+    }
+    .state dd {
+      font-size: 30px;
+    }
+  }
+</style>

@@ -1,0 +1,106 @@
+---
+// LogFilters.astro — filter by type. The <script> below is the only
+// JavaScript on /log: it toggles `hidden` on rows and hides a chapter when
+// no row under it stays visible. Vanilla, no framework.
+import { useLogTranslations } from '../../i18n/log';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useLogTranslations(lang);
+
+const filters = [
+  { key: 'all', label: t('log.filter.all') },
+  { key: 'shipped', label: t('log.filter.shipped') },
+  { key: 'decision', label: t('log.filter.decision') },
+  { key: 'next', label: t('log.filter.next') },
+] as const;
+---
+
+<div class="filters" role="group" aria-label={t('log.filter.label')}>
+  <span>{t('log.filter.label')}</span>
+  {
+    filters.map((f) => (
+      <button type="button" aria-pressed={f.key === 'all' ? 'true' : 'false'} data-f={f.key}>
+        {f.label}
+      </button>
+    ))
+  }
+</div>
+
+<script>
+  const chain = document.getElementById('chain');
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filters button');
+  if (chain) {
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const f = btn.dataset.f;
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        chain.querySelectorAll<HTMLElement>('.row').forEach((r) => {
+          r.hidden = f !== 'all' && r.dataset.s !== f;
+        });
+        chain.querySelectorAll<HTMLElement>('.chapter').forEach((ch) => {
+          let n = ch.nextElementSibling;
+          let any = false;
+          while (n && !n.classList.contains('chapter')) {
+            if (n.classList.contains('row') && !(n as HTMLElement).hidden) {
+              any = true;
+              break;
+            }
+            n = n.nextElementSibling;
+          }
+          ch.hidden = !any;
+        });
+      });
+    });
+  }
+</script>
+
+<style>
+  .filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 72px 0 8px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .filters span {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--subtle);
+    margin-right: 8px;
+  }
+  .filters button {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 7px 16px;
+    cursor: pointer;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+  .filters button:hover {
+    color: var(--text);
+    border-color: var(--subtle);
+  }
+  .filters button:focus-visible {
+    outline: 2px solid var(--color-teal-500);
+    outline-offset: 3px;
+  }
+  .filters button[aria-pressed='true'] {
+    color: var(--color-stone-950);
+    background: var(--color-stone-100);
+    border-color: var(--color-stone-100);
+  }
+</style>

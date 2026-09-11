@@ -3,13 +3,15 @@ import { type Lang } from '../../i18n/ui';
 
 interface Props {
   current: Lang;
+  /** Route without locale prefix ('/', '/log'); the switch keeps the page. */
+  path?: string;
 }
 
-const { current } = Astro.props;
+const { current, path = '/' } = Astro.props;
 
 const links: { code: Lang; label: string; href: string }[] = [
-  { code: 'en', label: 'EN', href: '/' },
-  { code: 'es', label: 'ES', href: '/es/' },
+  { code: 'en', label: 'EN', href: path },
+  { code: 'es', label: 'ES', href: `/es${path}` },
 ];
 ---
 

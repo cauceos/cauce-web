@@ -1,0 +1,29 @@
+---
+// LogModules.astro — the module pills under an entry.
+interface Props {
+  modulos: readonly string[];
+}
+
+const { modulos } = Astro.props;
+---
+
+<div class="mods">
+  {modulos.map((m) => <span class="mod">{m}</span>)}
+</div>
+
+<style>
+  .mods {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+  }
+  .mod {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 3px 11px;
+  }
+</style>

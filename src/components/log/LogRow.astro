@@ -1,0 +1,161 @@
+---
+// LogRow.astro — one unit in the archive: rail node + number on the left,
+// the entry on the right. data-s is the filter group the row belongs to.
+import { render } from 'astro:content';
+import type { LogEntry } from '../../lib/log';
+import { filterGroup } from '../../lib/log';
+import type { Lang } from '../../i18n/ui';
+import LogEntryMeta from './LogEntryMeta.astro';
+import LogModules from './LogModules.astro';
+
+interface Props {
+  entry: LogEntry;
+  lang: Lang;
+  /** The latest landed unit: teal node. */
+  isNow?: boolean;
+  /** Last row of the chain: the rail stops at the node. */
+  isLast?: boolean;
+}
+
+const { entry, lang, isNow = false, isLast = false } = Astro.props;
+const { numero, tipo, titulo, limite, modulos } = entry.data;
+const { Content } = await render(entry);
+---
+
+<div
+  id={`u${numero}`}
+  class:list={['row', { 'is-now': isNow, 'is-next': tipo === 'next', 'is-last': isLast }]}
+  data-s={filterGroup(tipo)}
+>
+  <div class="rail" aria-hidden="true">
+    <span class="node"></span>
+    <span class="num">{numero}</span>
+  </div>
+  <article class="item">
+    <div class="top">
+      <LogEntryMeta entry={entry} lang={lang} />
+    </div>
+    <h3>{titulo}</h3>
+    <div class="body"><Content /></div>
+    {limite && <p class="limit">{limite}</p>}
+    <LogModules modulos={modulos} />
+  </article>
+</div>
+
+<style>
+  .row {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+  }
+  .row[hidden] {
+    display: none;
+  }
+  .rail {
+    position: relative;
+  }
+  .rail::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--color-stone-700);
+  }
+  .row.is-last .rail::before {
+    bottom: auto;
+    height: 26px;
+  }
+  .node {
+    position: absolute;
+    left: 0;
+    top: 22px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--color-stone-700);
+    border: 2px solid var(--color-stone-950);
+    box-sizing: content-box;
+  }
+  .row.is-now .node {
+    background: var(--color-teal-500);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-teal-500) 13%, transparent);
+  }
+  .row.is-next .node {
+    background: var(--color-stone-950);
+    border: 1px solid var(--subtle);
+    width: 9px;
+    height: 9px;
+    top: 23px;
+    left: 1px;
+  }
+  .num {
+    position: absolute;
+    left: 30px;
+    top: 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--subtle);
+  }
+
+  .item {
+    padding: 14px 0 40px;
+    min-width: 0;
+  }
+  .top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 24px;
+    letter-spacing: -0.9px;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .row.is-next h3 {
+    color: var(--muted);
+  }
+  .body :global(p) {
+    color: var(--text-3);
+    max-width: 64ch;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .row.is-next .body :global(p) {
+    color: var(--subtle);
+  }
+  .body :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background: var(--color-stone-800);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: var(--color-stone-200);
+  }
+  .limit {
+    margin-top: 16px;
+    padding-left: 16px;
+    border-left: 1px solid var(--color-stone-700);
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--subtle);
+    max-width: 62ch;
+  }
+
+  @media (max-width: 720px) {
+    .row {
+      grid-template-columns: 40px 1fr;
+    }
+    .num {
+      display: none;
+    }
+    h3 {
+      font-size: 21px;
+    }
+  }
+</style>
