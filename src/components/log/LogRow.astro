@@ -98,7 +98,7 @@ const Heading = tipo === 'next' ? 'h2' : 'h3';
     top: 14px;
     font-family: var(--font-mono);
     font-size: 11px;
-    color: var(--subtle);
+    color: var(--text-quiet);
   }
 
   .item {
@@ -130,7 +130,7 @@ const Heading = tipo === 'next' ? 'h2' : 'h3';
     line-height: 1.7;
   }
   .row.is-next .body :global(p) {
-    color: var(--subtle);
+    color: var(--muted);
   }
   .body :global(code) {
     font-family: var(--font-mono);
@@ -146,7 +146,7 @@ const Heading = tipo === 'next' ? 'h2' : 'h3';
     border-left: 1px solid var(--color-stone-700);
     font-size: 13.5px;
     line-height: 1.7;
-    color: var(--subtle);
+    color: var(--muted); /* the limitation is content: 4.5:1 or better */
     max-width: 62ch;
   }
 

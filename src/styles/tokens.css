@@ -20,8 +20,9 @@
   --text: #ECEEE8;        /* stone-100 — primary text */
   --text-2: #D4D5CC;      /* stone-200 — secondary text */
   --muted: #8C8D82;       /* stone-400 — captions, placeholders */
-  --subtle: #4A4B42;      /* stone-600 — disabled, faint */
+  --subtle: #4A4B42;      /* stone-600 — disabled, faint. Never for text that carries meaning. */
   --text-3: #C8CAC2;      /* body copy on dark, one step under --text-2 */
+  --text-quiet: #6B6C63;  /* non-essential meta text (dates, labels, counters): >= 3:1 on stone-900 */
 
   /* === Build log surfaces === */
   /* The board recedes older entries: each step is a darker surface and a

@@ -146,9 +146,11 @@ const recession = ['now', 'r1', 'r2'] as const;
     background: var(--surface-recede-1);
     border-radius: 12px;
   }
+  /* Recession is carried by margin, surface, border and type size, not by
+   * text colour: every paragraph stays readable at 4.5:1 or better. */
   .entry.r2 {
-    margin-left: 52px;
-    padding: 20px 24px;
+    margin-left: 64px;
+    padding: 18px 22px;
     background: var(--surface-recede-2);
     border-radius: 10px;
     border-color: var(--border-recede);
@@ -196,7 +198,7 @@ const recession = ['now', 'r1', 'r2'] as const;
     font-size: 19px;
   }
   .entry.r2 .e-title {
-    font-size: 17px;
+    font-size: 16px;
     color: var(--text-3);
   }
 
@@ -211,11 +213,12 @@ const recession = ['now', 'r1', 'r2'] as const;
     font-size: 14px;
     max-width: 72ch;
   }
-  .entry.r1 .e-body :global(p) {
+  .entry.r1 .e-body :global(p),
+  .entry.r2 .e-body :global(p) {
     color: var(--muted);
   }
   .entry.r2 .e-body :global(p) {
-    color: var(--subtle);
+    font-size: 13.5px;
   }
   .e-body :global(code) {
     font-family: var(--font-mono);
@@ -237,7 +240,7 @@ const recession = ['now', 'r1', 'r2'] as const;
     border-left: 1px solid var(--color-stone-700);
     font-size: 13.5px;
     line-height: 1.7;
-    color: var(--subtle);
+    color: var(--muted); /* the limitation is content: 4.5:1 or better */
     max-width: 64ch;
   }
   .entry.r1 .limit,
@@ -252,12 +255,8 @@ const recession = ['now', 'r1', 'r2'] as const;
   .entry.r2 :global(.mods) {
     margin-top: 14px;
   }
-  .entry.r2 :global(.mod) {
-    color: var(--subtle);
-  }
-
   .foot {
-    margin-left: 52px;
+    margin-left: 64px;
     padding-top: 8px;
   }
   .all {
@@ -287,7 +286,7 @@ const recession = ['now', 'r1', 'r2'] as const;
   .foot p {
     font-family: var(--font-mono);
     font-size: 11.5px;
-    color: var(--subtle);
+    color: var(--text-quiet);
     margin-top: 14px;
   }
 
@@ -343,11 +342,11 @@ const recession = ['now', 'r1', 'r2'] as const;
       padding: 20px 18px;
     }
     .entry.r2 {
-      margin-left: 24px;
-      padding: 18px 16px;
+      margin-left: 28px;
+      padding: 16px 14px;
     }
     .foot {
-      margin-left: 24px;
+      margin-left: 28px;
     }
     .all {
       display: block;
