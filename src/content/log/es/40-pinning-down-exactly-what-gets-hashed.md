@@ -2,7 +2,7 @@
 numero: 40
 sha: "94de4c0"
 fecha: "2026-09-11"
-titulo: "Fijar exactamente qué se hashea"
+titulo: "Fijar exactamente qué entra en el hash"
 tipo: shipped
 modulos: ["cauce-governance"]
 capitulo: signatures

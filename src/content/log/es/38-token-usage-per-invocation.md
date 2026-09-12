@@ -10,4 +10,4 @@ lang: es
 limite: "Sigue sin haber agregación por tenant ni materialización del coste."
 ---
 
-El endpoint de invocación devuelve los datos de tokens que el ledger registró para esa llamada, como campo aditivo y anulable.
+El endpoint de invocación devuelve los datos de tokens que el libro mayor registró para esa llamada, como campo aditivo y anulable.

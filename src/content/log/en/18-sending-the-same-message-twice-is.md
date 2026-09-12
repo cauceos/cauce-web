@@ -2,7 +2,7 @@
 numero: 18
 sha: "e50786e"
 fecha: "2026-07-04"
-titulo: "Sending the same message twice is safe"
+titulo: "Sending the same message twice changes nothing"
 tipo: shipped
 modulos: ["cauce-api", "cauce-orchestration"]
 capitulo: hardening

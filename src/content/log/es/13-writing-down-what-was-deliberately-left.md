@@ -2,7 +2,7 @@
 numero: 13
 sha: "3736694"
 fecha: "2026-06-10"
-titulo: "Dejar por escrito lo que se dejó sin hacer a propósito"
+titulo: "Poner por escrito lo que se dejó sin hacer a propósito"
 tipo: decision
 modulos: ["docs"]
 capitulo: public-loop

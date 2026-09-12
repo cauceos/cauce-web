@@ -2,7 +2,7 @@
 numero: 23
 sha: "440bd0e"
 fecha: "2026-07-17"
-titulo: "Listas que no se caen a escala"
+titulo: "Listas que aguantan cuando crecen"
 tipo: breaking
 modulos: ["cauce-api", "cauce-memory"]
 capitulo: operability

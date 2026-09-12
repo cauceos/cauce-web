@@ -43,7 +43,7 @@ export const logChapters: readonly LogChapter[] = [
     slug: 'operability',
     from: 22,
     to: 25,
-    title: { en: 'Made operable', es: 'Hecho operable' },
+    title: { en: 'Made operable', es: 'Puesto a punto' },
     period: { en: 'July', es: 'Julio' },
   },
   {
