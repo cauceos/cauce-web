@@ -91,8 +91,21 @@ cauce-web/
 │   │   ├── tokens.css               # CSS custom properties
 │   │   └── global.css               # Reset, utilidades, clases base
 │   │
-│   └── content/
-│       └── devlogs/                 # Markdown para devlogs (futuro)
+│   ├── content.config.ts            # Colección `log` (schema Zod)
+│   ├── content/
+│   │   └── log/
+│   │       ├── en/                  # Una unidad por fichero: NN-slug.md
+│   │       └── es/                  # Misma unidad, mismo nombre de fichero
+│   ├── components/log/              # Piezas de /log (masthead, filtros, raíl, fila)
+│   ├── components/LogPage.astro     # Página /log completa (patrón Landing)
+│   ├── data/
+│   │   ├── log-chapters.ts          # 12 capítulos con rango y títulos EN/ES
+│   │   └── log-stats.ts             # Cifras del masthead (commits, módulos, tests, inicio)
+│   ├── i18n/log.ts                  # Cadenas de interfaz del log (escaneadas por el guard)
+│   └── lib/log.ts                   # Lector único de la colección
+│
+├── scripts/
+│   └── check-log-vocabulary.mjs     # Guard de vocabulario, corre antes de `astro build`
 │
 ├── .env.example                     # Plantilla de variables de entorno
 ├── .gitignore
@@ -319,8 +332,11 @@ Reglas:
 | 04 | Qué es Cauce | **light** ← excepción | `#que-es` |
 | 05 | Arquitectura | dark | `#arquitectura` |
 | 06 | Building in public | dark | `#bip` |
-| 07 | Waitlist | dark + acento teal | `#waitlist` |
-| 08 | Footer | dark | — |
+| 07 | Build log (tablón) | dark | `#log` |
+| 08 | Waitlist | dark + acento teal | `#waitlist` |
+| 09 | Footer | dark | — |
+
+Además de la landing existe la página **/log** (EN) y **/es/log** (ES) con el archivo completo del build log. Ver §8b.
 
 ---
 
@@ -497,7 +513,8 @@ Manifesto (4 puntos numerados, izquierda):
 
 [Seguir el progreso →]
 
-Feed de devlogs (derecha, card):
+Feed de devlogs (SUSTITUIDO: hoy la sección 07 · Build log lee de la
+colección; este bloque queda como referencia histórica del mockup original):
 
   ┌──────────────────────────────────────────┐
   │ [C] Cauce OS                              │
@@ -524,7 +541,27 @@ Feed de devlogs (derecha, card):
 
 **CRÍTICO:** Sin referencias a "el de prácticas", a empresas concretas donde el autor haya trabajado, o a cualquier experiencia personal específica. Tono universal sobre el sector.
 
-### 07 · Waitlist
+### 07 · Build log (tablón)
+
+Sustituye al feed de devlogs hardcodeado que había en la columna derecha de
+"Building in public". El manifiesto de esa sección pasó a rejilla 2x2.
+
+```
+H2:         What I've [built]            ← "built" en italic teal
+Head-meta:  chain · 42 units · last 2026-09-11   ← derivado de la colección
+
+Tablón:     Las TRES unidades de mayor `numero` (excluyendo `next`).
+            La primera, tarjeta completa con borde encendido (.now).
+            La segunda y la tercera receden (.r1, .r2): más margin-left,
+            fondo más oscuro, tipo menor. Conectores verticales entre ellas.
+
+CTA:        [Read all 42 units]  → /log      ← el 42 sale de la colección
+Nota:       Every unit links to the commit that closed it.
+```
+
+Esta sección **no tiene contenido propio**: lee `src/content/log`. Ver §8b.
+
+### 08 · Waitlist
 
 ```
 Card con gradient teal sutil + border teal + glow radial.
@@ -542,11 +579,90 @@ Form:   [tu@email.com                    ] [Apúntame →]
 Nota:   Sin spam. Solo cuando haya algo que merezca la pena.
 ```
 
-### 08 · Footer
+### 09 · Footer
 
 ```
 [Logo] Cauce  |  by Payoyo Dev          hola@cauce.dev · GitHub · X · cauce.dev · 2025
 ```
+
+---
+
+## 8b · Build log: la colección y cómo se publica una entrada
+
+El build log es una **Content Collection** de Astro (`src/content.config.ts`,
+colección `log`). Cada unidad de trabajo es un `.md` por idioma. La home
+(tablón) y `/log` (archivo) leen de ahí; no hay copy de unidades en ningún
+componente ni en `ui.ts`.
+
+### Publicar una entrada nueva
+
+Crear **dos ficheros** con el mismo nombre, y nada más. La home se
+actualiza sola: el tablón toma las tres de mayor `numero`, el contador del
+CTA y el masthead cuentan la colección.
+
+```
+src/content/log/en/44-slug-del-titulo.md
+src/content/log/es/44-slug-del-titulo.md
+```
+
+```markdown
+---
+numero: 44
+sha: "abc1234"            # commit en cauceos/cauce que CIERRA la unidad. null = sin verificar (no se pinta enlace)
+fecha: "2026-09-20"       # YYYY-MM-DD. null solo si tipo es next
+titulo: "Título literal"
+tipo: shipped             # shipped | decision | breaking | next
+modulos: ["cauce-api", "playground"]
+capitulo: signatures      # slug de src/data/log-chapters.ts. null solo si tipo es next
+lang: en
+limite: "El límite conocido que deja la unidad. null si no hay."
+---
+
+El párrafo descriptivo. Markdown: `código` inline y *énfasis* funcionan.
+```
+
+Reglas que el build impone:
+
+- `numero` debe caer dentro del rango del `capitulo`. Si la unidad abre un
+  capítulo nuevo, añádelo primero en `src/data/log-chapters.ts` (slug,
+  rango, título y periodo en EN y ES).
+- EN y ES deben cubrir el mismo conjunto de `numero`. Falta una traducción
+  y el build falla.
+- La unidad `next` (la siguiente sin empezar) lleva `sha`, `fecha` y
+  `capitulo` a `null`. Solo hay una. Cuando se cierra, se rellenan y se
+  crea la siguiente `next`.
+- Al cerrar una unidad, actualiza `src/data/log-stats.ts` (commits,
+  módulos, tests). El total de unidades NO está ahí: se deriva.
+
+### Vocabulario prohibido
+
+`scripts/check-log-vocabulary.mjs` corre antes de `astro build` y falla si
+aparece, en EN o ES, cualquier palabra que convierta un hecho técnico en un
+veredicto sobre normas u obligaciones (compliant, GDPR, certified,
+guaranteed, tamper-proof, admissible, legal, protected, secure, y sus
+equivalentes en español). La lista vive solo en ese fichero, que espeja el
+guard del playground del backend. Alcance: `src/content/log`, `src/i18n/log.ts`,
+`src/data/log-*.ts`, `src/lib/log.ts` y los componentes del log. El resto
+del sitio queda fuera a propósito.
+
+Los **límites conocidos** no se suavizan ni se omiten: son el motivo de la
+sección.
+
+### Diseño
+
+- Recesión del tablón por estructura (margin-left, fondo, borde, tamaño de
+  tipo), no por color de texto. Todo texto con significado cumple 4.5:1
+  (`--muted`); la meta no esencial (fechas, números, etiquetas) usa
+  `--text-quiet` (≥3:1).
+- Una sola animación de entrada orquestada, disparada una vez cuando el
+  tablón entra en el viewport (`.reveal-trigger` en `Base.astro`). Solo
+  opacidad y transform. `prefers-reduced-motion` la desactiva.
+- El filtro de `/log` es el único JavaScript de esa página (vanilla, sin isla).
+- Cada fila de `/log` tiene ancla `#u<numero>` (`/log#u42`). No hay
+  permalinks por unidad ni RSS: diferidos hasta que existan permalinks.
+- El SHA se pinta como enlace solo si existe.
+- El adapter de Vercel falla en Windows al final del build (symlink EPERM)
+  después de prerenderizar todas las páginas; en Vercel no ocurre.
 
 ---
 
