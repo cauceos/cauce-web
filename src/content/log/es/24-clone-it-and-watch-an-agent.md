@@ -1,7 +1,7 @@
 ---
 numero: 24
-sha: null
-fecha: "2026-07"
+sha: "047bdcd"
+fecha: "2026-07-23"
 titulo: "Clónalo y mira a un agente responder"
 tipo: shipped
 modulos: ["docker", "scripts"]

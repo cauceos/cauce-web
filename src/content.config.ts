@@ -16,10 +16,10 @@ const log = defineCollection({
         .string()
         .regex(/^[0-9a-f]{7,40}$/, 'sha must be a lowercase hex commit id')
         .nullable(),
-      /** YYYY-MM-DD, or YYYY-MM when the exact day is not verified. null only for `next`. */
+      /** YYYY-MM-DD. null only for `next`. */
       fecha: z
         .string()
-        .regex(/^\d{4}-\d{2}(-\d{2})?$/, 'fecha must be YYYY-MM-DD or YYYY-MM')
+        .regex(/^\d{4}-\d{2}-\d{2}$/, 'fecha must be YYYY-MM-DD')
         .nullable(),
       titulo: z.string().min(1),
       tipo: z.enum(['shipped', 'decision', 'breaking', 'next']),
