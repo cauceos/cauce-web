@@ -1,6 +1,6 @@
 ---
 import Logo from '../Logo.astro';
-import { useTranslations } from '../../i18n/utils';
+import { useTranslations, getLocalizedPath } from '../../i18n/utils';
 import type { Lang } from '../../i18n/ui';
 
 interface Props {
@@ -9,6 +9,8 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+// Absolute so the link also works from /log.
+const home = `${getLocalizedPath('/', lang)}#inicio`;
 ---
 
 <footer class="border-t border-[var(--border)] py-12 mt-12">
@@ -16,7 +18,7 @@ const t = useTranslations(lang);
     <div class="flex items-center justify-between flex-wrap gap-5">
       <!-- Marca -->
       <div class="flex items-center gap-4">
-        <a href="#inicio" class="flex items-center gap-2.5">
+        <a href={home} class="flex items-center gap-2.5">
           <Logo size={22} />
           <span class="font-display text-base text-stone-400 tracking-tight">
             Cau<em class="italic text-teal-500">ce</em>
