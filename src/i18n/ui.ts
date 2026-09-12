@@ -143,7 +143,7 @@ export const ui = {
 
     // Footer
     'footer.by': 'by Payoyo Dev',
-    'footer.email': 'hola@cauce.dev',
+    'footer.email': 'joseluisrv.dev@gmail.com',
     'footer.year': 'cauce.dev · 2026',
   },
   es: {
@@ -281,7 +281,7 @@ export const ui = {
 
     // Footer
     'footer.by': 'by Payoyo Dev',
-    'footer.email': 'hola@cauce.dev',
+    'footer.email': 'joseluisrv.dev@gmail.com',
     'footer.year': 'cauce.dev · 2026',
   },
 } as const;

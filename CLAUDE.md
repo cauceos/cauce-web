@@ -582,7 +582,7 @@ Nota:   Sin spam. Solo cuando haya algo que merezca la pena.
 ### 09 · Footer
 
 ```
-[Logo] Cauce  |  by Payoyo Dev          hola@cauce.dev · GitHub · X · cauce.dev · 2025
+[Logo] Cauce  |  by Payoyo Dev          joseluisrv.dev@gmail.com · GitHub · X · cauce.dev · 2025
 ```
 
 ---
@@ -891,7 +891,7 @@ export default {
 PUBLIC_WAITLIST_ENDPOINT=        # URL del servicio de waitlist
 PUBLIC_GITHUB_URL=https://github.com/cauceos
 PUBLIC_X_URL=https://x.com/cauce_ai
-PUBLIC_CONTACT_EMAIL=hola@cauce.dev
+PUBLIC_CONTACT_EMAIL=joseluisrv.dev@gmail.com
 ```
 
 `.env.example` sí se commitea con los valores en blanco como plantilla.
@@ -926,7 +926,7 @@ pnpm astro add       # Añadir integraciones
 
 ```
 Dominio principal:    cauce.dev
-Email contacto:       hola@cauce.dev
+Email contacto:       joseluisrv.dev@gmail.com
 GitHub org:           github.com/cauceos
 X (Twitter):          @cauce_ai
 LinkedIn:             (futuro)
